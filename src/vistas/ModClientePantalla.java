@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -30,9 +31,9 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	private String[] nombres = {"DNI:", "Nombre:", "Domicilio:", "Telefono:", "Mail:"};
 
 	
-	public ModClientePantalla(ClienteDelegate controlador) {
+	public ModClientePantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = ClienteDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -85,24 +86,32 @@ public class ModClientePantalla extends javax.swing.JFrame {
 					
 					String dni = dnit.getText();
 					
-					if(isInteger(dni) && controlador.verificarCliente(Integer.parseInt(dni))){
-						ClienteDTO cv = controlador.solicitarClienteView(Integer.parseInt(dni));
-						for (JLabel l : labels) l.setVisible(true);
-						for (JTextField t : texts) t.setVisible(true);
-						texts.get(0).setText(dni);
-						texts.get(1).setText(cv.getNombre());
-						texts.get(2).setText(cv.getDireccion());
-						texts.get(3).setText(cv.getTelefono());
-						texts.get(4).setText(cv.getMail());
-						mod.setVisible(true);
-						
-						mensaje.setText("");
-					} else {
-						for (JLabel l : labels) l.setVisible(false);
-						for (JTextField t : texts) t.setVisible(false);
-						mod.setVisible(false);
-						mensaje.setText("El cliente no existe.");
-						mensaje.setForeground(Color.RED);
+					try {
+						if(isInteger(dni) && controlador.verificarCliente(Integer.parseInt(dni))){
+							ClienteDTO cv = controlador.solicitarClienteView(Integer.parseInt(dni));
+							for (JLabel l : labels) l.setVisible(true);
+							for (JTextField t : texts) t.setVisible(true);
+							texts.get(0).setText(dni);
+							texts.get(1).setText(cv.getNombre());
+							texts.get(2).setText(cv.getDireccion());
+							texts.get(3).setText(cv.getTelefono());
+							texts.get(4).setText(cv.getMail());
+							mod.setVisible(true);
+							
+							mensaje.setText("");
+						} else {
+							for (JLabel l : labels) l.setVisible(false);
+							for (JTextField t : texts) t.setVisible(false);
+							mod.setVisible(false);
+							mensaje.setText("El cliente no existe.");
+							mensaje.setForeground(Color.RED);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				}
@@ -137,7 +146,9 @@ public class ModClientePantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							ClienteDTO cv = controlador.solicitarClienteView(Integer.parseInt(dni));
+						try {
+							ClienteDTO cv;
+								cv = controlador.solicitarClienteView(Integer.parseInt(dni));
 							cv.setNombre(texts.get(1).getText());
 							cv.setDireccion( texts.get(2).getText());
 							cv.setTelefono( texts.get(3).getText());
@@ -145,6 +156,13 @@ public class ModClientePantalla extends javax.swing.JFrame {
 
 							controlador.modificarCliente(cv, Integer.parseInt(dni));
 							for (JTextField t : texts) t.setText("");
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 					}
 					

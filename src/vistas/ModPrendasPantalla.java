@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import DTO.PrendaDTO;
+import businessDelegates.PrendaDelegate;
 import controlador.Controlador;
 
 public class ModPrendasPantalla extends javax.swing.JFrame {
@@ -19,15 +21,15 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private Controlador controlador;
+	private PrendaDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Codigo:", "Descripcion:"};
 
 	
-	public ModPrendasPantalla(Controlador controlador) {
+	public ModPrendasPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = PrendaDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -80,21 +82,29 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 					
 					String cod = codt.getText();
 					
-					if(isInteger(cod) && controlador.verificarPrenda(Integer.parseInt(cod))){
-						PrendaDTO pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
-						for (JLabel l : labels) l.setVisible(true);
-						for (JTextField t : texts) t.setVisible(true);
-						texts.get(0).setText(cod);
-						texts.get(1).setText(pv.getDescripcion());
-						mod.setVisible(true);
-						
-						mensaje.setText("");
-					} else {
-						for (JLabel l : labels) l.setVisible(false);
-						for (JTextField t : texts) t.setVisible(false);
-						mod.setVisible(false);
-						mensaje.setText("La prenda no existe.");
-						mensaje.setForeground(Color.RED);
+					try {
+						if(isInteger(cod) && controlador.verificarPrenda(Integer.parseInt(cod))){
+							PrendaDTO pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
+							for (JLabel l : labels) l.setVisible(true);
+							for (JTextField t : texts) t.setVisible(true);
+							texts.get(0).setText(cod);
+							texts.get(1).setText(pv.getDescripcion());
+							mod.setVisible(true);
+							
+							mensaje.setText("");
+						} else {
+							for (JLabel l : labels) l.setVisible(false);
+							for (JTextField t : texts) t.setVisible(false);
+							mod.setVisible(false);
+							mensaje.setText("La prenda no existe.");
+							mensaje.setForeground(Color.RED);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				}
@@ -123,10 +133,19 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							PrendaDTO pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
+							PrendaDTO pv;
+							try {
+								pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
 							pv.setDescripcion(texts.get(1).getText());
 							controlador.modificarPrenda(pv, Integer.parseInt(cod));
 							for (JTextField t : texts) t.setText("");
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					
 					}
 					

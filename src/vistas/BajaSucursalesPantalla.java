@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,9 +26,9 @@ public class BajaSucursalesPantalla extends javax.swing.JFrame {
 	private JLabel mensaje;
 	private SucursalDelegate controlador;
 	
-	public BajaSucursalesPantalla(SucursalDelegate controlador) {
+	public BajaSucursalesPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = SucursalDelegate.GetInstancia();
 		crearPantalla();
 	}
 	
@@ -74,12 +75,20 @@ public class BajaSucursalesPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-						if(controlador.verificarSucursal(Integer.parseInt(text.getText()))){
-							controlador.bajaSucursal(Integer.parseInt(text.getText()));
-							text.setText("");
-						} else {
-							texto = "La sucursal no existe.";
-							mensaje.setForeground(Color.RED);
+						try {
+							if(controlador.verificarSucursal(Integer.parseInt(text.getText()))){
+								controlador.bajaSucursal(Integer.parseInt(text.getText()));
+								text.setText("");
+							} else {
+								texto = "La sucursal no existe.";
+								mensaje.setForeground(Color.RED);
+							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 					

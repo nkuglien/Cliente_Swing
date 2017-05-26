@@ -81,7 +81,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuClientesAlta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					AltaClientePantalla ac = new AltaClientePantalla(controlador);
+					AltaClientePantalla ac = new AltaClientePantalla();
 					ac.setVisible(true);
 				}
 			});
@@ -93,7 +93,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuClientesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					ModClientePantalla ca = new ModClientePantalla(controlador);
+					ModClientePantalla ca = new ModClientePantalla();
 					ca.setVisible(true);
 				}
 			});
@@ -104,7 +104,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuClientesBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					BajaClientePantalla ba = new BajaClientePantalla(controlador);
+					BajaClientePantalla ba = new BajaClientePantalla();
 					ba.setVisible(true);
 				}
 			});
@@ -120,7 +120,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuSucursalesAlta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					AltaSucursalesPantalla aa = new AltaSucursalesPantalla(controlador);
+					AltaSucursalesPantalla aa = new AltaSucursalesPantalla();
 					aa.setVisible(true);
 				}
 			});
@@ -131,7 +131,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuSucursalesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					ModSucursalesPantalla ma = new ModSucursalesPantalla(controlador);
+					ModSucursalesPantalla ma = new ModSucursalesPantalla();
 					ma.setVisible(true);
 				}
 			});
@@ -142,7 +142,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuSucursalesBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					BajaSucursalesPantalla ba = new BajaSucursalesPantalla(controlador);
+					BajaSucursalesPantalla ba = new BajaSucursalesPantalla();
 					ba.setVisible(true);
 				}
 			});
@@ -158,7 +158,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuInsumosAlta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					AltaInsumosPantalla aa = new AltaInsumosPantalla(controlador);
+					AltaInsumosPantalla aa = new AltaInsumosPantalla();
 					aa.setVisible(true);
 				}
 			});
@@ -169,7 +169,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuInsumosMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					ModInsumosPantalla ma = new ModInsumosPantalla(controlador);
+					ModInsumosPantalla ma = new ModInsumosPantalla();
 					ma.setVisible(true);
 				}
 			});
@@ -180,7 +180,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuInsumosBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					BajaInsumosPantalla ba = new BajaInsumosPantalla(controlador);
+					BajaInsumosPantalla ba = new BajaInsumosPantalla();
 					ba.setVisible(true);
 				}
 			});
@@ -197,7 +197,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuPrendasAlta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					AltaPrendasPantalla ac = new AltaPrendasPantalla(controlador);
+					AltaPrendasPantalla ac = new AltaPrendasPantalla();
 					ac.setVisible(true);
 				}
 			});
@@ -208,7 +208,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuPrendasBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					BajaPrendasPantalla bc = new BajaPrendasPantalla(controlador);
+					BajaPrendasPantalla bc = new BajaPrendasPantalla();
 					bc.setVisible(true);
 				}
 			});
@@ -219,7 +219,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuPrendasMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					ModPrendasPantalla mc = new ModPrendasPantalla(controlador);
+					ModPrendasPantalla mc = new ModPrendasPantalla();
 					mc.setVisible(true);
 				}
 			});
@@ -236,7 +236,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuProveedoresAlta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					AltaProveedoresPantalla ac = new AltaProveedoresPantalla(controlador);
+					AltaProveedoresPantalla ac = new AltaProveedoresPantalla();
 					ac.setVisible(true);
 				}
 			});
@@ -247,7 +247,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuProveedoresBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					BajaProveedoresPantalla bc = new BajaProveedoresPantalla(controlador);
+					BajaProveedoresPantalla bc = new BajaProveedoresPantalla();
 					bc.setVisible(true);
 				}
 			});
@@ -258,7 +258,7 @@ public class Principal extends javax.swing.JFrame  {
 			jMenuProveedoresMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
-					ModProveedoresPantalla mc = new ModProveedoresPantalla(controlador);
+					ModProveedoresPantalla mc = new ModProveedoresPantalla();
 					mc.setVisible(true);
 				}
 			});

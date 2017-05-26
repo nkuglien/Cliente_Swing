@@ -4,6 +4,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -30,9 +31,9 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 	private String[] nombres = {"DNI:", "Nombre:", "Domicilio:", "Telefono:", "Mail:"};
 
 	
-	public AltaClientePantalla(ClienteDelegate controlador) {
+	public AltaClientePantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = ClienteDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -90,9 +91,17 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 					}
 					
 					if (!error){
-						if(!controlador.verificarCliente(Integer.parseInt(texts.get(0).getText()))){
-							controlador.altaCliente(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(), Integer.parseInt(texts.get(3).getText()), texts.get(4).getText());
-							for (JTextField t : texts) t.setText("");
+						try {
+							if(!controlador.verificarCliente(Integer.parseInt(texts.get(0).getText()))){
+								controlador.altaCliente(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(), Integer.parseInt(texts.get(3).getText()), texts.get(4).getText());
+								for (JTextField t : texts) t.setText("");
+							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						} 
 //							else {
 //							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));

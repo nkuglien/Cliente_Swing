@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,9 +25,9 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 	private JLabel mensaje;
 	private InsumoDelegate controlador;
 	
-	public BajaInsumosPantalla(InsumoDelegate controlador) {
+	public BajaInsumosPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = InsumoDelegate.GetInstancia();
 		crearPantalla();
 	}
 	
@@ -73,12 +74,20 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-						if(controlador.verificarInsumo(Integer.parseInt(text.getText()))){
-							controlador.bajaInsumo(Integer.parseInt(text.getText()));
-							text.setText("");
-						} else {
-							texto = "El insumo no existe.";
-							mensaje.setForeground(Color.RED);
+						try {
+							if(controlador.verificarInsumo(Integer.parseInt(text.getText()))){
+								controlador.bajaInsumo(Integer.parseInt(text.getText()));
+								text.setText("");
+							} else {
+								texto = "El insumo no existe.";
+								mensaje.setForeground(Color.RED);
+							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 					

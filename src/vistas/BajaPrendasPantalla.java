@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,9 +24,9 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 	private JLabel mensaje;
 	private PrendaDelegate controlador;
 	
-	public BajaPrendasPantalla(PrendaDelegate controlador) {
+	public BajaPrendasPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = PrendaDelegate.GetInstancia();
 		crearPantalla();
 	}
 	
@@ -72,12 +73,20 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-						if(controlador.verificarPrenda(Integer.parseInt(text.getText()))){
-							controlador.bajaprenda(Integer.parseInt(text.getText()));
-							text.setText("");
-						} else {
-							texto = "La prenda no existe.";
-							mensaje.setForeground(Color.RED);
+						try {
+							if(controlador.verificarPrenda(Integer.parseInt(text.getText()))){
+								controlador.bajaprenda(Integer.parseInt(text.getText()));
+								text.setText("");
+							} else {
+								texto = "La prenda no existe.";
+								mensaje.setForeground(Color.RED);
+							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 					

@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import DTO.SucursalDTO;
+import businessDelegates.SucursalDelegate;
 import controlador.Controlador;
 
 public class ModSucursalesPantalla extends javax.swing.JFrame {
@@ -19,15 +21,15 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private Controlador controlador;
+	private SucursalDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Nombre:", "Domicilio:", "Hora Apertura:", "Hora Cierre:"};
 
 	
-	public ModSucursalesPantalla(Controlador controlador) {
+	public ModSucursalesPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = SucursalDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -80,24 +82,32 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					
 					String nro = nrot.getText();
 					
-					if(isInteger(nro) && controlador.verificarSucursal(Integer.parseInt(nro))){
-						SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
-						for (JLabel l : labels) l.setVisible(true);
-						for (JTextField t : texts) t.setVisible(true);
-						texts.get(0).setText(nro);
-						texts.get(1).setText(sv.getNombre());
-						texts.get(2).setText(sv.getDireccion());
-						texts.get(3).setText(sv.getHorarioApertura().toString());
-						texts.get(4).setText(sv.getHorarioCierre().toString());
-						mod.setVisible(true);
-						
-						mensaje.setText("");
-					} else {
-						for (JLabel l : labels) l.setVisible(false);
-						for (JTextField t : texts) t.setVisible(false);
-						mod.setVisible(false);
-						mensaje.setText("La sucursal no existe.");
-						mensaje.setForeground(Color.RED);
+					try {
+						if(isInteger(nro) && controlador.verificarSucursal(Integer.parseInt(nro))){
+							SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
+							for (JLabel l : labels) l.setVisible(true);
+							for (JTextField t : texts) t.setVisible(true);
+							texts.get(0).setText(nro);
+							texts.get(1).setText(sv.getNombre());
+							texts.get(2).setText(sv.getDireccion());
+							texts.get(3).setText(sv.getHorarioApertura().toString());
+							texts.get(4).setText(sv.getHorarioCierre().toString());
+							mod.setVisible(true);
+							
+							mensaje.setText("");
+						} else {
+							for (JLabel l : labels) l.setVisible(false);
+							for (JTextField t : texts) t.setVisible(false);
+							mod.setVisible(false);
+							mensaje.setText("La sucursal no existe.");
+							mensaje.setForeground(Color.RED);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				}
@@ -132,11 +142,20 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
+							SucursalDTO sv;
+							try {
+								sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
 							sv.setNombre(texts.get(1).getText());
 							sv.setDireccion(texts.get(2).getText());
 							controlador.modificarSucursal(sv, Integer.parseInt(nro));
 							for (JTextField t : texts) t.setText("");
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					
 					}
 					

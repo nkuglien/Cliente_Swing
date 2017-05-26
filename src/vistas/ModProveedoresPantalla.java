@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import DTO.ProveedorDTO;
+import businessDelegates.ProveedorDelegate;
 import controlador.Controlador;
 
 public class ModProveedoresPantalla extends javax.swing.JFrame {
@@ -19,15 +21,15 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private Controlador controlador;
+	private ProveedorDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Id:", "Nombre:"};
 
 	
-	public ModProveedoresPantalla(Controlador controlador) {
+	public ModProveedoresPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = ProveedorDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -80,21 +82,29 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 					
 					String id = idt.getText();
 					
-					if(isInteger(id) && controlador.verificarProveedor(Integer.parseInt(id))){
-						ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
-						for (JLabel l : labels) l.setVisible(true);
-						for (JTextField t : texts) t.setVisible(true);
-						texts.get(0).setText(id);
-						texts.get(1).setText(pv.getNombre());
-						mod.setVisible(true);
-						
-						mensaje.setText("");
-					} else {
-						for (JLabel l : labels) l.setVisible(false);
-						for (JTextField t : texts) t.setVisible(false);
-						mod.setVisible(false);
-						mensaje.setText("El proveedor no existe.");
-						mensaje.setForeground(Color.RED);
+					try {
+						if(isInteger(id) && controlador.verificarProveedor(Integer.parseInt(id))){
+							ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
+							for (JLabel l : labels) l.setVisible(true);
+							for (JTextField t : texts) t.setVisible(true);
+							texts.get(0).setText(id);
+							texts.get(1).setText(pv.getNombre());
+							mod.setVisible(true);
+							
+							mensaje.setText("");
+						} else {
+							for (JLabel l : labels) l.setVisible(false);
+							for (JTextField t : texts) t.setVisible(false);
+							mod.setVisible(false);
+							mensaje.setText("El proveedor no existe.");
+							mensaje.setForeground(Color.RED);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				}
@@ -123,10 +133,19 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
+							ProveedorDTO pv;
+							try {
+								pv = controlador.solicitarProveedorView(Integer.parseInt(id));
 							pv.setNombre(texts.get(1).getText());
 							controlador.modificarProveedor(pv, Integer.parseInt(id));
 							for (JTextField t : texts) t.setText("");
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					
 					}
 					

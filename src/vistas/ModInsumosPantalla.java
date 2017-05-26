@@ -3,6 +3,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import DTO.InsumoDTO;
+import businessDelegates.InsumoDelegate;
 import controlador.Controlador;
 
 public class ModInsumosPantalla extends javax.swing.JFrame {
@@ -19,15 +21,15 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private Controlador controlador;
+	private InsumoDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
 
 	
-	public ModInsumosPantalla(Controlador controlador) {
+	public ModInsumosPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = InsumoDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -80,24 +82,32 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 					
 					String cod = codt.getText();
 					
-					if(isInteger(cod) && controlador.verificarInsumo(Integer.parseInt(cod))){
-						InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
-						for (JLabel l : labels) l.setVisible(true);
-						for (JTextField t : texts) t.setVisible(true);
-						texts.get(0).setText(cod);
-						texts.get(1).setText(iv.getNombre());
-						texts.get(2).setText(iv.getDescripcion());
-						texts.get(3).setText(Integer.toString(iv.getStockMinimo()));
-						texts.get(4).setText(Integer.toString(iv.getCantCompra()));
-						mod.setVisible(true);
-						
-						mensaje.setText("");
-					} else {
-						for (JLabel l : labels) l.setVisible(false);
-						for (JTextField t : texts) t.setVisible(false);
-						mod.setVisible(false);
-						mensaje.setText("El insumo no existe.");
-						mensaje.setForeground(Color.RED);
+					try {
+						if(isInteger(cod) && controlador.verificarInsumo(Integer.parseInt(cod))){
+							InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
+							for (JLabel l : labels) l.setVisible(true);
+							for (JTextField t : texts) t.setVisible(true);
+							texts.get(0).setText(cod);
+							texts.get(1).setText(iv.getNombre());
+							texts.get(2).setText(iv.getDescripcion());
+							texts.get(3).setText(Integer.toString(iv.getStockMinimo()));
+							texts.get(4).setText(Integer.toString(iv.getCantCompra()));
+							mod.setVisible(true);
+							
+							mensaje.setText("");
+						} else {
+							for (JLabel l : labels) l.setVisible(false);
+							for (JTextField t : texts) t.setVisible(false);
+							mod.setVisible(false);
+							mensaje.setText("El insumo no existe.");
+							mensaje.setForeground(Color.RED);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				
 				}
@@ -138,13 +148,22 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
+							InsumoDTO iv;
+							try {
+								iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
 							iv.setNombre(texts.get(1).getText());
 							iv.setDescripcion(texts.get(2).getText());
 							iv.setStockMinimo(Integer.parseInt(texts.get(3).getText()));
 							iv.setCantCompra(Integer.parseInt(texts.get(4).getText()));
 							controlador.modificarInsumo(iv, Integer.parseInt(cod));
 							for (JTextField t : texts) t.setText("");
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					
 					}
 					

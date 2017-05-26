@@ -4,6 +4,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -29,9 +30,9 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
 
 	
-	public AltaInsumosPantalla(InsumoDelegate controlador) {
+	public AltaInsumosPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = InsumoDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -95,9 +96,17 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 					}
 					
 					if (!error){
-						if(!controlador.verificarInsumo(Integer.parseInt(texts.get(0).getText()))){
-							controlador.altaInsumo(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(),  Integer.parseInt(texts.get(3).getText()), Integer.parseInt(texts.get(4).getText()));
-							for (JTextField t : texts) t.setText("");
+						try {
+							if(!controlador.verificarInsumo(Integer.parseInt(texts.get(0).getText()))){
+								controlador.altaInsumo(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(),  Integer.parseInt(texts.get(3).getText()), Integer.parseInt(texts.get(4).getText()));
+								for (JTextField t : texts) t.setText("");
+							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 //						} else {
 //							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));

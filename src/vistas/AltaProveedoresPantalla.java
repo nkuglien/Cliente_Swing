@@ -4,6 +4,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -29,9 +30,9 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 	private String[] nombres = {"Id:", "Nombre:"};
 
 	
-	public AltaProveedoresPantalla(ProveedorDelegate controlador) {
+	public AltaProveedoresPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = ProveedorDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -85,9 +86,10 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 					}
 					
 					if (!error){
-						if(!controlador.verificarProveedor(Integer.parseInt(texts.get(0).getText()))){
-							controlador.altaProveedor(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText());
-							for (JTextField t : texts) t.setText("");
+						try {
+							if(!controlador.verificarProveedor(Integer.parseInt(texts.get(0).getText()))){
+								controlador.altaProveedor(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText());
+								for (JTextField t : texts) t.setText("");
 //						} else {
 //							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));
 //							if (!c.isActivo()){
@@ -99,7 +101,14 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 //								mensaje.setForeground(Color.RED);
 //							}
 //						}
-					}
+}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 					mensaje.setText(texto);
 					

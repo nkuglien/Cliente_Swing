@@ -15,7 +15,7 @@ public class Main {
 		try {
 			if (getStub()) {
 				System.out.println("Se conecto");
-				List<ClienteDTO> clientes = remoto.GetClientes();
+				//List<ClienteDTO> clientes = remoto.GetClientes();
 				System.out.println("Levante los clientes");
 			} else
 				System.out.println("No se conecto");

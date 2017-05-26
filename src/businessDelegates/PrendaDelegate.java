@@ -1,19 +1,55 @@
 package businessDelegates;
 
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+
+import DTO.PrendaDTO;
+import RemoteObject.ClienteRemote;
+import RemoteObject.PrendaRemote;
+
 public class PrendaDelegate {
 
-	public boolean verificarPrenda(int parseInt) {
-		// TODO Auto-generated method stub
-		return false;
+private static PrendaDelegate instancia;
+	private PrendaRemote remoto;
+	public static PrendaDelegate GetInstancia(){
+		if(instancia==null)
+			instancia = new PrendaDelegate();
+		return instancia;
+		
+	}
+	
+	
+	public PrendaDelegate() {
+		try{
+			remoto =(PrendaRemote) Naming.lookup("//localhost:1099/PrendaController");
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public boolean verificarPrenda(int parseInt) throws RemoteException {
+		return remoto.verificarPrenda(parseInt);
 	}
 
-	public void altaPrenda(int parseInt, String text) {
-		// TODO Auto-generated method stub
+	public void altaPrenda(int parseInt, String text) throws RemoteException {
+		remoto.altaPrenda(parseInt, text);
+	}
+
+	public void bajaprenda(int parseInt) throws RemoteException {
+		remoto.bajaprenda(parseInt);
+		
 		
 	}
 
-	public void bajaprenda(int parseInt) {
-		// TODO Auto-generated method stub
+
+	public PrendaDTO solicitarPrendaView(int parseInt) throws RemoteException {
+		return remoto.solicitarPrendaView(parseInt);
+	}
+
+
+	public void modificarPrenda(PrendaDTO pv, int parseInt) throws RemoteException {
+	 remoto.modificarPrenda(pv, parseInt);
 		
 	}
 

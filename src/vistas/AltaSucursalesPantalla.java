@@ -4,6 +4,7 @@ package vistas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -29,9 +30,9 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 	private String[] nombres = {"Nombre:", "Domicilio:", "Hora Apertura", "Hora Cierre"};
 
 	
-	public AltaSucursalesPantalla(SucursalDelegate controlador) {
+	public AltaSucursalesPantalla() {
 		super();
-		this.controlador = controlador;
+		this.controlador = SucursalDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -91,9 +92,10 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 					
 					
 					if (!error){
-						if(!controlador.verificarSucursal(Integer.parseInt(texts.get(0).getText()))){
-							controlador.altaSucursal(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()));
-							for (JTextField t : texts) t.setText("");
+						try {
+							if(!controlador.verificarSucursal(Integer.parseInt(texts.get(0).getText()))){
+								controlador.altaSucursal(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()));
+								for (JTextField t : texts) t.setText("");
 //						} else {
 //							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));
 //							if (!c.isActivo()){
@@ -105,7 +107,14 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 //								mensaje.setForeground(Color.RED);
 //							}
 //						}
-					}
+}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 					mensaje.setText(texto);
 					
