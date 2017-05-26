@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.InsumoDelegate;
 
 public class BajaInsumosPantalla extends javax.swing.JFrame {
@@ -66,6 +67,7 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					
 					if (!isInteger(text.getText())){
 						texto = "Codigo debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

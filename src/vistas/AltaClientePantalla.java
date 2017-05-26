@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.ClienteDelegate;
 
 public class AltaClientePantalla extends javax.swing.JFrame  {
@@ -105,6 +106,7 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 //							}
 //						}
 					
+
 					
 					mensaje.setText(texto);
 					

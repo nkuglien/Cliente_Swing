@@ -1,4 +1,4 @@
-package vista;
+package vistas;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import modelo.Cliente;
+import DTO.SucursalDTO;
 import controlador.Controlador;
 
 public class ModSucursalesPantalla extends javax.swing.JFrame {
@@ -81,14 +81,14 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					String nro = nrot.getText();
 					
 					if(isInteger(nro) && controlador.verificarSucursal(Integer.parseInt(nro))){
-						SucursalView sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
+						SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
 						for (JLabel l : labels) l.setVisible(true);
 						for (JTextField t : texts) t.setVisible(true);
 						texts.get(0).setText(nro);
-						texts.get(1).setText(sv.nombre);
-						texts.get(2).setText(sv.dom);
-						texts.get(3).setText(Integer.toString(sv.hApertura));
-						texts.get(4).setText(sv.hCierre);
+						texts.get(1).setText(sv.getNombre());
+						texts.get(2).setText(sv.getDireccion());
+						texts.get(3).setText(sv.getHorarioApertura().toString());
+						texts.get(4).setText(sv.getHorarioCierre().toString());
 						mod.setVisible(true);
 						
 						mensaje.setText("");
@@ -114,30 +114,28 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "La sucursal se modificó con éxito.";
+					String texto = "La sucursal se modificï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					String nro = texts.get(0).getText();
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Hora debería ser un número.";
+						texto = "Hora deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(nro)){
-						texto = "Numero debería ser un número.";
+						texto = "Numero deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
-							SucursaleView sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
-							sv.nombre = texts.get(1).getText();
-							sv.dom = texts.get(2).getText();
-							sv.tel = Integer.parseInt(texts.get(3).getText());
-							sv.mail = texts.get(4).getText();
-							controlador.modificarCliente(sv, Integer.parseInt(nro));
+							SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
+							sv.setNombre(texts.get(1).getText());
+							sv.setDireccion(texts.get(2).getText());
+							controlador.modificarSucursal(sv, Integer.parseInt(nro));
 							for (JTextField t : texts) t.setText("");
 					
 					}

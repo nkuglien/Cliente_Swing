@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.SucursalDelegate;
 
 public class AltaSucursalesPantalla extends javax.swing.JFrame  {
@@ -83,6 +84,7 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 					
 					if (!isInteger(texts.get(3).getText())){
 						texto = "Hora Cierre debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

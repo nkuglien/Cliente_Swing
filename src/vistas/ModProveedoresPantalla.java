@@ -1,4 +1,4 @@
-package vista;
+package vistas;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import modelo.Cliente;
+import DTO.ProveedorDTO;
 import controlador.Controlador;
 
 public class ModProveedoresPantalla extends javax.swing.JFrame {
@@ -81,11 +81,11 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 					String id = idt.getText();
 					
 					if(isInteger(id) && controlador.verificarProveedor(Integer.parseInt(id))){
-						ProveedorView pv = controlador.solicitarProveedorView(Integer.parseInt(id));
+						ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
 						for (JLabel l : labels) l.setVisible(true);
 						for (JTextField t : texts) t.setVisible(true);
 						texts.get(0).setText(id);
-						texts.get(1).setText(pv.nombre);
+						texts.get(1).setText(pv.getNombre());
 						mod.setVisible(true);
 						
 						mensaje.setText("");
@@ -111,21 +111,21 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El proveedor se modificó con éxito.";
+					String texto = "El proveedor se modificï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					String id = texts.get(0).getText();
 					
-					if (!isInteger(cod)){
-						texto = "Id debería ser un número.";
+					if (!isInteger(id)){
+						texto = "Id deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
-							ProveedorView pv = controlador.solicitarProveedorView(Integer.parseInt(id));
-							pv.nombre = texts.get(1).getText();
-							controlador.modificarPrenda(pv, Integer.parseInt(id));
+							ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
+							pv.setNombre(texts.get(1).getText());
+							controlador.modificarProveedor(pv, Integer.parseInt(id));
 							for (JTextField t : texts) t.setText("");
 					
 					}

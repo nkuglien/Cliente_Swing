@@ -1,4 +1,4 @@
-package vista;
+package vistas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,9 +9,9 @@ import javax.swing.WindowConstants;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import vista.AltaClientePantalla;
-import vista.ModClientePantalla;
-import vista.Principal;
+import vistas.AltaClientePantalla;
+import vistas.ModClientePantalla;
+import vistas.Principal;
 import controlador.Controlador;
 
 
@@ -89,7 +89,7 @@ public class Principal extends javax.swing.JFrame  {
 		
 			jMenuClientesMod = new JMenuItem();
 			jMenuClientes.add(jMenuClientesMod);
-			jMenuClientesMod.setText("Modificación");
+			jMenuClientesMod.setText("Modificaciï¿½n");
 			jMenuClientesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -215,7 +215,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuPrendasMod = new JMenuItem();
 			jMenuPrendas.add(jMenuPrendasMod);
-			jMenuPrendasMod.setText("Modificación");
+			jMenuPrendasMod.setText("Modificaciï¿½n");
 			jMenuPrendasMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -254,7 +254,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuProveedoresMod = new JMenuItem();
 			jMenuProveedores.add(jMenuProveedoresMod);
-			jMenuProveedoresMod.setText("Modificación");
+			jMenuProveedoresMod.setText("Modificaciï¿½n");
 			jMenuProveedoresMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{

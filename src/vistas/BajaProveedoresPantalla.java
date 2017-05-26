@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.ProveedorDelegate;
 
 public class BajaProveedoresPantalla extends javax.swing.JFrame {
@@ -66,6 +67,7 @@ public class BajaProveedoresPantalla extends javax.swing.JFrame {
 					
 					if (!isInteger(text.getText())){
 						texto = "Id debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

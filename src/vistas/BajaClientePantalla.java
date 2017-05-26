@@ -65,6 +65,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 					
 					if (!isInteger(text.getText())){
 						texto = "DNI debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

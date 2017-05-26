@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.PrendaDelegate;
 
 public class AltaPrendasPantalla extends javax.swing.JFrame  {
@@ -78,6 +79,7 @@ public class AltaPrendasPantalla extends javax.swing.JFrame  {
 					
 					if (!isInteger(texts.get(0).getText())){
 						texto = "Codigo debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

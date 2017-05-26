@@ -1,4 +1,4 @@
-package vista;
+package vistas;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import modelo.Cliente;
+import DTO.PrendaDTO;
 import controlador.Controlador;
 
 public class ModPrendasPantalla extends javax.swing.JFrame {
@@ -81,11 +81,11 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 					String cod = codt.getText();
 					
 					if(isInteger(cod) && controlador.verificarPrenda(Integer.parseInt(cod))){
-						PrendaView pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
+						PrendaDTO pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
 						for (JLabel l : labels) l.setVisible(true);
 						for (JTextField t : texts) t.setVisible(true);
 						texts.get(0).setText(cod);
-						texts.get(1).setText(pv.desc);
+						texts.get(1).setText(pv.getDescripcion());
 						mod.setVisible(true);
 						
 						mensaje.setText("");
@@ -111,20 +111,20 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "La prenda se modificó con éxito.";
+					String texto = "La prenda se modificï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					String cod = texts.get(0).getText();
 					
 					if (!isInteger(cod)){
-						texto = "DNI debería ser un número.";
+						texto = "DNI deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
-							PrendaView pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
-							pv.desc = texts.get(1).getText();
+							PrendaDTO pv = controlador.solicitarPrendaView(Integer.parseInt(cod));
+							pv.setDescripcion(texts.get(1).getText());
 							controlador.modificarPrenda(pv, Integer.parseInt(cod));
 							for (JTextField t : texts) t.setText("");
 					

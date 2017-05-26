@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.InsumoDelegate;
 
 public class AltaInsumosPantalla extends javax.swing.JFrame  {
@@ -109,6 +110,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 //								mensaje.setForeground(Color.RED);
 //							}
 //						}
+
 					
 					mensaje.setText(texto);
 					

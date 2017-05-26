@@ -1,4 +1,4 @@
-package vista;
+package vistas;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -10,8 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import businessDelegates.InsumoDelegate;
-import modelo.Cliente;
+import DTO.InsumoDTO;
 import controlador.Controlador;
 
 public class ModInsumosPantalla extends javax.swing.JFrame {
@@ -20,13 +19,13 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private InsumoDelegate controlador;
+	private Controlador controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
 
 	
-	public ModInsumosPantalla(InsumoDelegate controlador) {
+	public ModInsumosPantalla(Controlador controlador) {
 		super();
 		this.controlador = controlador;
 		crearPantalla();
@@ -86,10 +85,10 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 						for (JLabel l : labels) l.setVisible(true);
 						for (JTextField t : texts) t.setVisible(true);
 						texts.get(0).setText(cod);
-						texts.get(1).setText(iv.nombre);
-						texts.get(2).setText(iv.desc);
-						texts.get(3).setText(Integer.toString(sv.stockMin));
-						texts.get(4).setText(Integer.toString(iv.cantCompra));
+						texts.get(1).setText(iv.getNombre());
+						texts.get(2).setText(iv.getDescripcion());
+						texts.get(3).setText(Integer.toString(iv.getStockMinimo()));
+						texts.get(4).setText(Integer.toString(iv.getCantCompra()));
 						mod.setVisible(true);
 						
 						mensaje.setText("");
@@ -115,36 +114,36 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El insumo se modificó con éxito.";
+					String texto = "El insumo se modificï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					String cod = texts.get(0).getText();
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Stock debería ser un número.";
+						texto = "Stock deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(texts.get(4).getText())){
-						texto = "Cantidad Compra debería ser un número.";
+						texto = "Cantidad Compra deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(cod)){
-						texto = "Numero debería ser un número.";
+						texto = "Numero deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
-							InsumoView iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
-							iv.nombre = texts.get(1).getText();
-							iv.desc = texts.get(2).getText();
-							iv.stockMin = Integer.parseInt(texts.get(3).getText());
-							iv.cantCompra = texts.get(4).getText();
-							controlador.modificarCliente(iv, Integer.parseInt(cod));
+							InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
+							iv.setNombre(texts.get(1).getText());
+							iv.setDescripcion(texts.get(2).getText());
+							iv.setStockMinimo(Integer.parseInt(texts.get(3).getText()));
+							iv.setCantCompra(Integer.parseInt(texts.get(4).getText()));
+							controlador.modificarInsumo(iv, Integer.parseInt(cod));
 							for (JTextField t : texts) t.setText("");
 					
 					}

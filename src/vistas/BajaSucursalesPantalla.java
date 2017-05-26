@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 import businessDelegates.SucursalDelegate;
 
 
@@ -67,6 +68,7 @@ public class BajaSucursalesPantalla extends javax.swing.JFrame {
 					
 					if (!isInteger(text.getText())){
 						texto = "Numero debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

@@ -66,6 +66,7 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					
 					if (!isInteger(text.getText())){
 						texto = "Codigo debería ser un número.";
+
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

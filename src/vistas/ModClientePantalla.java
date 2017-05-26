@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import DTO.ClienteDTO;
+
 import businessDelegates.ClienteDelegate;
 
 public class ModClientePantalla extends javax.swing.JFrame {
@@ -141,6 +142,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							cv.setDireccion( texts.get(2).getText());
 							cv.setTelefono( texts.get(3).getText());
 							cv.setMail(texts.get(4).getText());
+
 							controlador.modificarCliente(cv, Integer.parseInt(dni));
 							for (JTextField t : texts) t.setText("");
 					
