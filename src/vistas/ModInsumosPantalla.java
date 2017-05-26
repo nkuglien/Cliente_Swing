@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import businessDelegates.InsumoDelegate;
 import modelo.Cliente;
 import controlador.Controlador;
 
@@ -19,13 +20,13 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private Controlador controlador;
+	private InsumoDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
 
 	
-	public ModInsumosPantalla(Controlador controlador) {
+	public ModInsumosPantalla(InsumoDelegate controlador) {
 		super();
 		this.controlador = controlador;
 		crearPantalla();
@@ -81,7 +82,7 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 					String cod = codt.getText();
 					
 					if(isInteger(cod) && controlador.verificarInsumo(Integer.parseInt(cod))){
-						InsumoView iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
+						InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
 						for (JLabel l : labels) l.setVisible(true);
 						for (JTextField t : texts) t.setVisible(true);
 						texts.get(0).setText(cod);
