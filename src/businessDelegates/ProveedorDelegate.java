@@ -22,6 +22,7 @@ private static ProveedorDelegate instancia;
 	public ProveedorDelegate() {
 		try{
 			remoto =(TDAProveedor) Naming.lookup("//localhost:1099/ProveedorRemote");
+
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

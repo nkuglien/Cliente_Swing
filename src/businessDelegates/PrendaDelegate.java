@@ -21,6 +21,7 @@ private static PrendaDelegate instancia;
 	public PrendaDelegate() {
 		try{
 			remoto =(TDAPrenda) Naming.lookup("//localhost:1099/PrendaRemote");
+
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

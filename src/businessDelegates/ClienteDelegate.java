@@ -22,6 +22,7 @@ public class ClienteDelegate {
 	public ClienteDelegate() {
 		try {
 			remoto = (TDACliente) Naming.lookup("//localhost:1099/ClienteRemote");
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -20,6 +20,7 @@ private static SucursalDelegate instancia;
 	public SucursalDelegate() {
 		try{
 			remoto =(TDASucursal) Naming.lookup("//localhost:1099/SucursalRemote");
+
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
