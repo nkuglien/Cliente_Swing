@@ -4,13 +4,12 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 import DTO.SucursalDTO;
-import RemoteObject.ClienteRemote;
-import RemoteObject.SucursalRemote;
+import RemoteObject.TDASucursal;
 
 public class SucursalDelegate {
 
 private static SucursalDelegate instancia;
-	private SucursalRemote remoto;
+	private TDASucursal remoto;
 	public static SucursalDelegate GetInstancia(){
 		if(instancia==null)
 			instancia = new SucursalDelegate();
@@ -20,7 +19,7 @@ private static SucursalDelegate instancia;
 	
 	public SucursalDelegate() {
 		try{
-			remoto =(SucursalRemote) Naming.lookup("//localhost:1099/SucursalController");
+			remoto =(TDASucursal) Naming.lookup("//localhost:1099/SucursalRemote");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

@@ -5,12 +5,12 @@ import java.rmi.RemoteException;
 
 import DTO.ClienteDTO;
 import DTO.CuentaCorrienteDTO;
-import RemoteObject.ClienteRemote;
+import RemoteObject.TDACliente;
 
 public class ClienteDelegate {
 
 	private static ClienteDelegate instancia;
-	private ClienteRemote remoto;
+	private TDACliente remoto;
 
 	public static ClienteDelegate GetInstancia() {
 		if (instancia == null)
@@ -21,7 +21,7 @@ public class ClienteDelegate {
 
 	public ClienteDelegate() {
 		try {
-			remoto = (ClienteRemote) Naming.lookup("//localhost:1099/ClienteController");
+			remoto = (TDACliente) Naming.lookup("//localhost:1099/ClienteRemote");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

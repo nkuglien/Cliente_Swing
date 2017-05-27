@@ -4,13 +4,12 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 import DTO.InsumoDTO;
-import RemoteObject.ClienteRemote;
-import RemoteObject.InsumoRemote;
+import RemoteObject.TDAInsumo;;
 
 public class InsumoDelegate {
 
 private static InsumoDelegate instancia;
-private InsumoRemote remoto;
+private TDAInsumo remoto;
 	
 	public static InsumoDelegate GetInstancia(){
 		if(instancia==null)
@@ -22,7 +21,7 @@ private InsumoRemote remoto;
 	
 	public InsumoDelegate() {
 		try{
-			remoto =(InsumoRemote) Naming.lookup("//localhost:1099/InsumoController");
+			remoto =(TDAInsumo) Naming.lookup("//localhost:1099/InsumoRemote");
 		
 		}
 		catch(Exception e){
@@ -30,12 +29,18 @@ private InsumoRemote remoto;
 		}
 	}
 	
-	public boolean verificarInsumo(int parseInt) throws RemoteException {
-		return remoto.verificarInsumo(parseInt);
+	public InsumoDTO buscarInsumo(Long codigo) throws RemoteException {
+		return remoto.buscarInsumo(codigo);
 	}
 
-	public void altaInsumo(int parseInt, String text, String text2, int parseInt2, int parseInt3)  throws RemoteException {
-		remoto.altaInsumo(parseInt, text, text2, parseInt2, parseInt3);
+	public void altaInsumo(Long codigo, String nombre, String descripcion, int stockMin, int cantCompra)  throws RemoteException {
+		InsumoDTO dto = new InsumoDTO();
+		dto.setCodigo(codigo);
+		dto.setCantCompra(cantCompra);
+		dto.setDescripcion(descripcion);
+		dto.setNombre(nombre);
+		dto.setStockMinimo(stockMin);		
+		remoto.altaInsumo(dto);
 		
 	}
 

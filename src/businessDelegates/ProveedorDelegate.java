@@ -5,13 +5,12 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import DTO.ProveedorDTO;
-import RemoteObject.ClienteRemote;
-import RemoteObject.ProveedorRemote;
+import RemoteObject.TDAProveedor;
 
 public class ProveedorDelegate {
 
 private static ProveedorDelegate instancia;
-	private ProveedorRemote remoto;
+	private TDAProveedor remoto;
 	public static ProveedorDelegate GetInstancia(){
 		if(instancia==null)
 			instancia = new ProveedorDelegate();
@@ -22,7 +21,7 @@ private static ProveedorDelegate instancia;
 	
 	public ProveedorDelegate() {
 		try{
-			remoto =(ProveedorRemote) Naming.lookup("//localhost:1099/ProveedorController");
+			remoto =(TDAProveedor) Naming.lookup("//localhost:1099/ProveedorRemote");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

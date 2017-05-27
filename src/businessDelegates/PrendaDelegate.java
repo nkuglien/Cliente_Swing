@@ -4,13 +4,12 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 import DTO.PrendaDTO;
-import RemoteObject.ClienteRemote;
-import RemoteObject.PrendaRemote;
+import RemoteObject.TDAPrenda;
 
 public class PrendaDelegate {
 
 private static PrendaDelegate instancia;
-	private PrendaRemote remoto;
+	private TDAPrenda remoto;
 	public static PrendaDelegate GetInstancia(){
 		if(instancia==null)
 			instancia = new PrendaDelegate();
@@ -21,7 +20,7 @@ private static PrendaDelegate instancia;
 	
 	public PrendaDelegate() {
 		try{
-			remoto =(PrendaRemote) Naming.lookup("//localhost:1099/PrendaController");
+			remoto =(TDAPrenda) Naming.lookup("//localhost:1099/PrendaRemote");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
