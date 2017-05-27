@@ -22,7 +22,7 @@ private static ProveedorDelegate instancia;
 	
 	public ProveedorDelegate() {
 		try{
-			remoto =(ProveedorRemote) Naming.lookup("//localhost:1099/ProveedorController");
+			remoto =(ProveedorRemote) Naming.lookup("//localhost:1099/ProveedorRemoto");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

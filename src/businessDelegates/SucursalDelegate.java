@@ -20,7 +20,7 @@ private static SucursalDelegate instancia;
 	
 	public SucursalDelegate() {
 		try{
-			remoto =(SucursalRemote) Naming.lookup("//localhost:1099/SucursalController");
+			remoto =(SucursalRemote) Naming.lookup("//localhost:1099/SucursalRemoto");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

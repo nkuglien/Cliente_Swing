@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.InsumoDTO;
 import DTO.ProveedorDTO;
 import businessDelegates.InsumoDelegate;
 import businessDelegates.ProveedorDelegate;
@@ -93,7 +94,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 			alta = new JButton();
 			getContentPane().add(alta);
 			alta.setText("Ok");
-			alta.setBounds(260, 50 * i + 20, 70, 30);
+			alta.setBounds(260, 50 * i + 70, 70, 30);
 
 			alta.addActionListener(new ActionListener()
 			{
@@ -123,8 +124,9 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							if(!controlador.verificarInsumo(Integer.parseInt(texts.get(0).getText()))){
-								controlador.altaInsumo(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(),  Integer.parseInt(texts.get(3).getText()), Integer.parseInt(texts.get(4).getText()));
+							InsumoDTO insumo = controlador.buscarInsumo(Long.parseLong(texts.get(0).getText()));
+							if(insumo == null){
+								controlador.altaInsumo(Long.parseLong(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(),  Integer.parseInt(texts.get(3).getText()), Integer.parseInt(texts.get(4).getText()));
 								for (JTextField t : texts) t.setText("");
 							}
 						} catch (NumberFormatException e) {

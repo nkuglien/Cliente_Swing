@@ -21,7 +21,7 @@ public class ClienteDelegate {
 
 	public ClienteDelegate() {
 		try {
-			remoto = (ClienteRemote) Naming.lookup("//localhost:1099/ClienteController");
+			remoto = (ClienteRemote) Naming.lookup("//localhost:1099/ClienteRemoto");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
