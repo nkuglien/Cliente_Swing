@@ -29,6 +29,8 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"DNI:", "Nombre:", "Domicilio:", "Telefono:", "Mail:"};
+	
+	private ClienteDTO cliente;
 
 	
 	public ModClientePantalla() {
@@ -84,14 +86,15 @@ public class ModClientePantalla extends javax.swing.JFrame {
 				
 				public void actionPerformed(ActionEvent arg0) {
 					
-					String dni = dnit.getText();
+					String cuit = dnit.getText();
 					
 					try {
-						if(isInteger(dni) && controlador.verificarCliente(Integer.parseInt(dni))){
-							ClienteDTO cv = controlador.solicitarClienteView(Integer.parseInt(dni));
+						cliente = controlador.buscarCliente(cuit);
+						if(isInteger(cuit) && cliente != null){
+							ClienteDTO cv = controlador.buscarCliente(cuit);
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);
-							texts.get(0).setText(dni);
+							texts.get(0).setText(cuit);
 							texts.get(1).setText(cv.getNombre());
 							texts.get(2).setText(cv.getDireccion());
 							texts.get(3).setText(cv.getTelefono());
@@ -146,13 +149,11 @@ public class ModClientePantalla extends javax.swing.JFrame {
 					
 					if (!error){
 						try {
-							ClienteDTO cv;
-								cv = controlador.solicitarClienteView(Integer.parseInt(dni));
-							cv.setNombre(texts.get(1).getText());
-							cv.setDireccion( texts.get(2).getText());
-							cv.setTelefono( texts.get(3).getText());
+							cliente.setNombre(texts.get(1).getText());
+							cliente.setDireccion( texts.get(2).getText());
+							cliente.setTelefono( texts.get(3).getText());
 
-							controlador.modificarCliente(cv, Integer.parseInt(dni));
+							controlador.modificarCliente(cliente);
 							for (JTextField t : texts) t.setText("");
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block

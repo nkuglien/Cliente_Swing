@@ -46,12 +46,12 @@ public class ClienteDelegate {
 
 	}
 
-	public ClienteDTO solicitarClienteView(int parseInt) throws RemoteException {
-		return remoto.solicitarClienteView(parseInt);
+	public ClienteDTO buscarCliente(String cuit) throws RemoteException {
+		return remoto.buscarCliente(cuit);
 	}
 
-	public void modificarCliente(ClienteDTO cv, int parseInt) throws RemoteException {
-		remoto.modificarCliente(cv, parseInt);
+	public void modificarCliente(ClienteDTO cliente) throws RemoteException {
+		remoto.modificarCliente(cliente);
 
 	}
 
