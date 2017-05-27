@@ -95,7 +95,6 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							texts.get(1).setText(cv.getNombre());
 							texts.get(2).setText(cv.getDireccion());
 							texts.get(3).setText(cv.getTelefono());
-							texts.get(4).setText(cv.getMail());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -128,19 +127,19 @@ public class ModClientePantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El cliente se modificó con éxito.";
+					String texto = "El cliente se modificï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					String dni = texts.get(0).getText();
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Teléfono debería ser un número.";
+						texto = "Telï¿½fono deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(dni)){
-						texto = "DNI debería ser un número.";
+						texto = "DNI deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
@@ -152,7 +151,6 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							cv.setNombre(texts.get(1).getText());
 							cv.setDireccion( texts.get(2).getText());
 							cv.setTelefono( texts.get(3).getText());
-							cv.setMail(texts.get(4).getText());
 
 							controlador.modificarCliente(cv, Integer.parseInt(dni));
 							for (JTextField t : texts) t.setText("");

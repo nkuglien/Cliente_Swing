@@ -25,15 +25,15 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 	
 	private JButton alta;
 	private JLabel mensaje;
-	private ClienteDelegate controlador;
+	private ClienteDelegate clienteBD;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"DNI:", "Nombre:", "Domicilio:", "Telefono:", "Mail:"};
+	private String[] nombres = {"CUIT:", "Nombre:", "Domicilio:", "Telefono:", "Limite de Credito"};
 
 	
 	public AltaClientePantalla() {
 		super();
-		this.controlador = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -75,25 +75,31 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El cliente se creó con éxito.";
+					String texto = "El cliente se creo con exito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Teléfono debería ser un número.";
+						texto = "Telefono debera ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(texts.get(0).getText())){
-						texto = "DNI debería ser un número.";
+						texto = "CUIT debera ser un numero.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
+					
+					if (!isInteger(texts.get(4).getText())){
+						texto = "Limite de credito debera ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
 						try {
-							if(!controlador.verificarCliente(Integer.parseInt(texts.get(0).getText()))){
-								controlador.altaCliente(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(), Integer.parseInt(texts.get(3).getText()), texts.get(4).getText());
+							if(!clienteBD.verificarCliente(Integer.parseInt(texts.get(0).getText()))){
+								clienteBD.altaCliente(texts.get(0).getText(), texts.get(1).getText(), texts.get(2).getText(), texts.get(3).getText(), new Float(texts.get(4).getText()));
 								for (JTextField t : texts) t.setText("");
 							}
 						} catch (NumberFormatException e) {
