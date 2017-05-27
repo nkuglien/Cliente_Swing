@@ -6,14 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractButton;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
+import DTO.ProveedorDTO;
 import businessDelegates.InsumoDelegate;
+import businessDelegates.ProveedorDelegate;
 
 public class AltaInsumosPantalla extends javax.swing.JFrame  {
 	
@@ -27,12 +32,18 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 	private InsumoDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
-
+	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant. Compra:"};
+	private List<ProveedorDTO> proveedores;
 	
 	public AltaInsumosPantalla() {
 		super();
 		this.controlador = InsumoDelegate.GetInstancia();
+		try {
+			proveedores = ProveedorDelegate.GetInstancia().getAllProveedores();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		crearPantalla();
 	}
 
@@ -50,7 +61,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 				JLabel l = new JLabel();
 				getContentPane().add(l);
 				l.setText(nombres[i]);
-				l.setBounds(21, 50 * i + 20, 70, 30);
+				l.setBounds(21, 50 * i + 20, 120, 30);
 				labels.add(l);
 				
 				JTextField t = new JTextField();
@@ -58,6 +69,21 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 				t.setBounds(120, 50 * i + 20, 210, 30);
 				texts.add(t);
 			}
+			
+			ProveedorDTO proveedoresArray[] = new ProveedorDTO[proveedores.size()]; int j = 0;
+			for(ProveedorDTO prov : proveedores) {
+				proveedoresArray[j] = prov;
+				j++;
+			}
+			JComboBox comboBox = new JComboBox(proveedoresArray);
+			getContentPane().add(comboBox);
+			comboBox.setBounds(120, 50 * i + 20, 210, 30);
+			JLabel proveedorLabel = new JLabel("Proveedor:");
+			getContentPane().add(proveedorLabel);
+			proveedorLabel.setBounds(21, 50 * i + 20, 120, 30);
+			
+			
+			
 			
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
@@ -74,23 +100,23 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El insumo se creó con éxito.";
+					String texto = "El insumo se creï¿½ con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Stock debería ser un número.";
+						texto = "Stock deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(texts.get(4).getText())){
-						texto = "Cantidad Compra debería ser un número.";
+						texto = "Cantidad Compra deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(texts.get(0).getText())){
-						texto = "Codigo debería ser un número.";
+						texto = "Codigo deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}

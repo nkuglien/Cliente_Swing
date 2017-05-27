@@ -2,6 +2,7 @@ package businessDelegates;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import DTO.ProveedorDTO;
 import RemoteObject.ClienteRemote;
@@ -50,6 +51,11 @@ private static ProveedorDelegate instancia;
 	public void modificarProveedor(ProveedorDTO pv, int parseInt) throws RemoteException {
 		remoto.modificarProveedor(pv, parseInt);
 		
+	}
+
+
+	public List<ProveedorDTO> getAllProveedores() throws RemoteException  {
+		return remoto.getAllProveedores();
 	}
 
 }

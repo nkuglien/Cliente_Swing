@@ -66,7 +66,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuBar = new JMenuBar();
 			setJMenuBar(jMenuBar);
-			jMenuBar.setPreferredSize(new java.awt.Dimension(600, 22));
+			jMenuBar.setPreferredSize(new java.awt.Dimension(700, 30));
 				
 
 			//Menu Clientes =========================================================
@@ -89,7 +89,7 @@ public class Principal extends javax.swing.JFrame  {
 		
 			jMenuClientesMod = new JMenuItem();
 			jMenuClientes.add(jMenuClientesMod);
-			jMenuClientesMod.setText("Modificaci�n");
+			jMenuClientesMod.setText("Modificación");
 			jMenuClientesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -127,7 +127,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuSucursalesMod = new JMenuItem();
 			jMenuSucursales.add(jMenuSucursalesMod);
-			jMenuSucursalesMod.setText("Modificacion");
+			jMenuSucursalesMod.setText("Modificación");
 			jMenuSucursalesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -165,7 +165,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuInsumosMod = new JMenuItem();
 			jMenuInsumos.add(jMenuInsumosMod);
-			jMenuInsumosMod.setText("Modificacion");
+			jMenuInsumosMod.setText("Modificación");
 			jMenuInsumosMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -215,7 +215,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuPrendasMod = new JMenuItem();
 			jMenuPrendas.add(jMenuPrendasMod);
-			jMenuPrendasMod.setText("Modificaci�n");
+			jMenuPrendasMod.setText("Modificación");
 			jMenuPrendasMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -227,8 +227,8 @@ public class Principal extends javax.swing.JFrame  {
 			//Menu Proveedores ========================================================
 			jMenuProveedores = new JMenu();
 			jMenuBar.add(jMenuProveedores);
-			jMenuProveedores.setText("Proveedor");
-			jMenuProveedores.setPreferredSize(new java.awt.Dimension(70, 21));
+			jMenuProveedores.setText("Proveedores");
+			jMenuProveedores.setPreferredSize(new java.awt.Dimension(95, 21));
 			
 			jMenuProveedoresAlta = new JMenuItem();
 			jMenuProveedores.add(jMenuProveedoresAlta);
@@ -254,7 +254,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuProveedoresMod = new JMenuItem();
 			jMenuProveedores.add(jMenuProveedoresMod);
-			jMenuProveedoresMod.setText("Modificaci�n");
+			jMenuProveedoresMod.setText("Modificación");
 			jMenuProveedoresMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -267,7 +267,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 						
 			pack();
-			setSize(400, 300);
+			setSize(600, 300);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
