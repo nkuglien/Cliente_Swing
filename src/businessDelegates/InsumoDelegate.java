@@ -51,13 +51,8 @@ private TDAInsumo remoto;
 		
 	}
 
-	public InsumoDTO solicitarInsumoView(int parseInt)  throws RemoteException {
-		return remoto.solicitarInsumoView(parseInt);
-	}
-
-
-	public void modificarInsumo(InsumoDTO iv, int parseInt)  throws RemoteException {
-		remoto.modificarInsumo(iv, parseInt);
+	public InsumoDTO modificarInsumo(InsumoDTO insumo) throws RemoteException {
+		return remoto.modificarInsumo(insumo);
 		
 	}
 
