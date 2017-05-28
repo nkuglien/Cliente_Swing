@@ -21,17 +21,14 @@ public class ClienteDelegate {
 
 	public ClienteDelegate() {
 		try {
-			remoto = (TDACliente) Naming.lookup("//localhost:1099/ClienteRemote");
+			remoto = (TDACliente) Naming.lookup("//localhost:1099/ClienteRemoto");
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	public boolean verificarCliente(int parseInt) throws RemoteException {
-		return remoto.verificarCliente(parseInt);
-	}
-	public void altaCliente(String cuit, String nombre, String direccion, String telefono, Float limiteCredito)
+	public ClienteDTO altaCliente(String cuit, String nombre, String direccion, String telefono, Float limiteCredito)
 			throws RemoteException {
 		
 		ClienteDTO clienteDTO = new ClienteDTO(nombre, direccion, telefono, cuit);
@@ -39,7 +36,7 @@ public class ClienteDelegate {
 		cc.setId((long) 1);
 		clienteDTO.setCc(cc);
 		
-		remoto.altaCliente(clienteDTO);
+		return remoto.altaCliente(clienteDTO);
 	}
 
 	public void bajaCliente(int parseInt) throws RemoteException {

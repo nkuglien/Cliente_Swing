@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
+import DTO.ClienteDTO;
 import businessDelegates.ClienteDelegate;
 
 public class AltaClientePantalla extends javax.swing.JFrame  {
@@ -98,9 +98,14 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							if(!clienteBD.verificarCliente(Integer.parseInt(texts.get(0).getText()))){
+							ClienteDTO cliente = clienteBD.buscarCliente(texts.get(0).getText());
+							if(cliente == null){
 								clienteBD.altaCliente(texts.get(0).getText(), texts.get(1).getText(), texts.get(2).getText(), texts.get(3).getText(), new Float(texts.get(4).getText()));
 								for (JTextField t : texts) t.setText("");
+							} else {
+								texto = "Ya existe cliente con ese cuit";
+								mensaje.setForeground(Color.RED);
+								error = true;
 							}
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block
