@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import DTO.ClienteDTO;
 
 import businessDelegates.ClienteDelegate;
@@ -25,17 +27,17 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private ClienteDelegate controlador;
+	private ClienteDelegate clienteBD;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"DNI:", "Nombre:", "Domicilio:", "Telefono:", "Mail:"};
+	private String[] nombres = {"Nro Cliente:", "Nombre:", "Domicilio:", "Telefono:"};
 	
 	private ClienteDTO cliente;
 
 	
 	public ModClientePantalla() {
 		super();
-		this.controlador = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -51,7 +53,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 			
 			JLabel dnib = new JLabel();
 			getContentPane().add(dnib);
-			dnib.setText("DNI:");
+			dnib.setText("CUIT:");
 			dnib.setBounds(21, 20, 70, 30);
 			
 			dnit = new JTextField();
@@ -89,15 +91,14 @@ public class ModClientePantalla extends javax.swing.JFrame {
 					String cuit = dnit.getText();
 					
 					try {
-						cliente = controlador.buscarCliente(cuit);
+						cliente = clienteBD.buscarCliente(cuit);
 						if(isInteger(cuit) && cliente != null){
-							ClienteDTO cv = controlador.buscarCliente(cuit);
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);
-							texts.get(0).setText(cuit);
-							texts.get(1).setText(cv.getNombre());
-							texts.get(2).setText(cv.getDireccion());
-							texts.get(3).setText(cv.getTelefono());
+							texts.get(0).setText(Long.toString(cliente.getNroCliente()));
+							texts.get(1).setText(cliente.getNombre());
+							texts.get(2).setText(cliente.getDireccion());
+							texts.get(3).setText(cliente.getTelefono());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -130,19 +131,19 @@ public class ModClientePantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El cliente se modific� con �xito.";
+					String texto = "El cliente se modifico con exito.";
 					mensaje.setForeground(Color.GREEN);
 					
-					String dni = texts.get(0).getText();
+					String cuit = texts.get(0).getText();
 					
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Tel�fono deber�a ser un n�mero.";
+						texto = "Telefono deberia ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
-					if (!isInteger(dni)){
-						texto = "DNI deber�a ser un n�mero.";
+					if (!isInteger(cuit)){
+						texto = "DNI deberia ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
@@ -153,7 +154,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							cliente.setDireccion( texts.get(2).getText());
 							cliente.setTelefono( texts.get(3).getText());
 
-							controlador.modificarCliente(cliente);
+							clienteBD.modificarCliente(cliente);
 							for (JTextField t : texts) t.setText("");
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block

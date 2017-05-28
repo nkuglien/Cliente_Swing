@@ -2,9 +2,11 @@ package businessDelegates;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import DTO.ClienteDTO;
 import DTO.CuentaCorrienteDTO;
+import DTO.MovimientoCCDTO;
 import RemoteObject.TDACliente;
 
 public class ClienteDelegate {
@@ -32,15 +34,15 @@ public class ClienteDelegate {
 			throws RemoteException {
 		
 		ClienteDTO clienteDTO = new ClienteDTO(nombre, direccion, telefono, cuit);
-		CuentaCorrienteDTO cc = new CuentaCorrienteDTO(new Float(0), limiteCredito, clienteDTO);
+		CuentaCorrienteDTO cc = new CuentaCorrienteDTO(new Float(0), limiteCredito, new ArrayList<MovimientoCCDTO>());
 		cc.setId((long) 1);
 		clienteDTO.setCc(cc);
 		
 		return remoto.altaCliente(clienteDTO);
 	}
 
-	public void bajaCliente(int parseInt) throws RemoteException {
-		remoto.bajaCliente(parseInt);
+	public void bajaCliente(String cuit) throws RemoteException {
+		remoto.bajaCliente(cuit);
 
 	}
 
