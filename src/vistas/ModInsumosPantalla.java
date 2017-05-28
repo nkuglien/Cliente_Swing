@@ -21,15 +21,16 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 	private JButton mod;
 	private JButton	buscar;
 	private JLabel mensaje;
-	private InsumoDelegate controlador;
+	private InsumoDelegate insumoBD;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Codigo:", "Nombre:", "Descripcion:", "Stock Minimo:", "Cant Compra:"};
+	InsumoDTO insumo;
 
 	
 	public ModInsumosPantalla() {
 		super();
-		this.controlador = InsumoDelegate.GetInstancia();
+		this.insumoBD = InsumoDelegate.GetInstancia();
 		crearPantalla();
 	}
 
@@ -83,15 +84,15 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 					String cod = codt.getText();
 					
 					try {
-						if(isInteger(cod) && controlador.verificarInsumo(Integer.parseInt(cod))){
-							InsumoDTO iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
+						insumo = insumoBD.buscarInsumo(Long.parseLong(cod));
+						if(insumo != null){
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);
-							texts.get(0).setText(cod);
-							texts.get(1).setText(iv.getNombre());
-							texts.get(2).setText(iv.getDescripcion());
-							texts.get(3).setText(Integer.toString(iv.getStockMinimo()));
-							texts.get(4).setText(Integer.toString(iv.getCantCompra()));
+							texts.get(0).setText(insumo.getCodigo().toString());
+							texts.get(1).setText(insumo.getNombre());
+							texts.get(2).setText(insumo.getDescripcion());
+							texts.get(3).setText(Integer.toString(insumo.getStockMinimo()));
+							texts.get(4).setText(Integer.toString(insumo.getCantCompra()));
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -148,14 +149,13 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 					}
 					
 					if (!error){
-							InsumoDTO iv;
 							try {
-								iv = controlador.solicitarInsumoView(Integer.parseInt(cod));
-							iv.setNombre(texts.get(1).getText());
-							iv.setDescripcion(texts.get(2).getText());
-							iv.setStockMinimo(Integer.parseInt(texts.get(3).getText()));
-							iv.setCantCompra(Integer.parseInt(texts.get(4).getText()));
-							controlador.modificarInsumo(iv, Integer.parseInt(cod));
+							
+							insumo.setNombre(texts.get(1).getText());
+							insumo.setDescripcion(texts.get(2).getText());
+							insumo.setStockMinimo(Integer.parseInt(texts.get(3).getText()));
+							insumo.setCantCompra(Integer.parseInt(texts.get(4).getText()));
+							insumoBD.modificarInsumo(insumo);
 							for (JTextField t : texts) t.setText("");
 							} catch (NumberFormatException e) {
 								// TODO Auto-generated catch block

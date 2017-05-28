@@ -1,14 +1,11 @@
 package main;
 
 import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.util.List;
 
-import DTO.ClienteDTO;
-import RemoteObject.ClienteRemote;
+import RemoteObject.TDACliente;
 
 public class Main {
-	public static ClienteRemote remoto;
+	public static TDACliente remoto;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -28,7 +25,7 @@ public class Main {
 	public static boolean getStub() {
 
 		try {
-			remoto = (ClienteRemote) Naming.lookup("//localhost/GestionClientes");
+			remoto = (TDACliente) Naming.lookup("//localhost/GestionClientes");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

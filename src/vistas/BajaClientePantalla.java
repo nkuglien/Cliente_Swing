@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.ClienteDTO;
 import businessDelegates.ClienteDelegate;
 public class BajaClientePantalla extends javax.swing.JFrame {
 	
@@ -21,11 +22,11 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 	private JLabel label;
 	private JTextField text;
 	private JLabel mensaje;
-	private ClienteDelegate controlador;
+	private ClienteDelegate clienteBD;
 	
 	public BajaClientePantalla() {
 		super();
-		this.controlador = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.GetInstancia();
 		crearPantalla();
 	}
 	
@@ -65,7 +66,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(text.getText())){
-						texto = "DNI debería ser un número.";
+						texto = "DNI deberia ser un numero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;
@@ -73,12 +74,14 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 					
 					if (!error){
 						try {
-							if(controlador.verificarCliente(Integer.parseInt(text.getText()))){
-								controlador.bajaCliente(Integer.parseInt(text.getText()));
+							ClienteDTO cliente = clienteBD.buscarCliente(text.getText());
+							if(cliente != null){
+								clienteBD.bajaCliente(text.getText());
 								text.setText("");
 							} else {
-								texto = "El cliente no existe.";
+								texto = "Ya existe cliente con ese cuit";
 								mensaje.setForeground(Color.RED);
+								error = true;
 							}
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block

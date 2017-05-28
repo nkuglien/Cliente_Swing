@@ -21,7 +21,7 @@ private TDAInsumo remoto;
 	
 	public InsumoDelegate() {
 		try{
-			remoto =(TDAInsumo) Naming.lookup("//localhost:1099/InsumoRemote");
+			remoto =(TDAInsumo) Naming.lookup("//localhost:1099/InsumoRemoto");
 
 		
 		}
@@ -45,19 +45,14 @@ private TDAInsumo remoto;
 		
 	}
 
-	public void bajaInsumo(int parseInt)  throws RemoteException {
-		remoto.bajaInsumo(parseInt);
+	public void bajaInsumo(Long codigo)  throws RemoteException {
+		remoto.bajaInsumo(codigo);
 		
 		
 	}
 
-	public InsumoDTO solicitarInsumoView(int parseInt)  throws RemoteException {
-		return remoto.solicitarInsumoView(parseInt);
-	}
-
-
-	public void modificarInsumo(InsumoDTO iv, int parseInt)  throws RemoteException {
-		remoto.modificarInsumo(iv, parseInt);
+	public InsumoDTO modificarInsumo(InsumoDTO insumo) throws RemoteException {
+		return remoto.modificarInsumo(insumo);
 		
 	}
 
