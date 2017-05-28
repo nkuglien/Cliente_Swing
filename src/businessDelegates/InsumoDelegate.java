@@ -45,8 +45,8 @@ private TDAInsumo remoto;
 		
 	}
 
-	public void bajaInsumo(int parseInt)  throws RemoteException {
-		remoto.bajaInsumo(parseInt);
+	public void bajaInsumo(Long codigo)  throws RemoteException {
+		remoto.bajaInsumo(codigo);
 		
 		
 	}
