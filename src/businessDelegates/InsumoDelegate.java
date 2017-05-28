@@ -2,6 +2,7 @@ package businessDelegates;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import DTO.InsumoDTO;
 import RemoteObject.TDAInsumo;;
@@ -57,9 +58,9 @@ private TDAInsumo remoto;
 	}
 
 
-	public boolean verificarInsumo(int parseInt)  throws RemoteException {
-		return remoto.verificarInsumo(parseInt);
-		
+
+	public List<InsumoDTO> getAllInsumos() throws RemoteException {
+		return remoto.getAllInsumos();
 	}
 
 }

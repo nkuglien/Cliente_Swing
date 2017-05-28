@@ -1,14 +1,19 @@
 package vistas;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import DTO.InsumoDTO;
 import vistas.AltaClientePantalla;
 import vistas.ModClientePantalla;
 import vistas.Principal;
@@ -263,6 +268,18 @@ public class Principal extends javax.swing.JFrame  {
 				}
 			});
 			
+			jMenuProveedoresMod = new JMenuItem();
+			jMenuProveedores.add(jMenuProveedoresMod);
+			jMenuProveedoresMod.setText("Asociar Insumos a Proveedores");
+			jMenuProveedoresMod.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) 
+				{
+					AsociarInsumosAProveedorPantalla mc = new AsociarInsumosAProveedorPantalla();
+					mc.setVisible(true);
+				}
+			});
+			
+
 				
 			
 						

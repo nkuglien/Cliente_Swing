@@ -4,6 +4,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import DTO.InsumoDTO;
+import DTO.InsumoProveedorDTO;
 import DTO.ProveedorDTO;
 import RemoteObject.TDAProveedor;
 
@@ -56,6 +58,10 @@ private static ProveedorDelegate instancia;
 
 	public List<ProveedorDTO> getAllProveedores() throws RemoteException  {
 		return remoto.getAllProveedores();
+	}
+	
+	public InsumoProveedorDTO asociarInsumo(ProveedorDTO proveedor, InsumoDTO insumo, Float precio) throws RemoteException {
+		return remoto.asociarInsumo(proveedor, insumo, precio);
 	}
 
 }

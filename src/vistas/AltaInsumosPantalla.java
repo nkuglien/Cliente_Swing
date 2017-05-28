@@ -71,7 +71,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 				texts.add(t);
 			}
 			
-			ProveedorDTO proveedoresArray[] = new ProveedorDTO[proveedores.size()]; int j = 0;
+			/*ProveedorDTO proveedoresArray[] = new ProveedorDTO[proveedores.size()]; int j = 0;
 			for(ProveedorDTO prov : proveedores) {
 				proveedoresArray[j] = prov;
 				j++;
@@ -81,7 +81,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 			comboBox.setBounds(120, 50 * i + 20, 210, 30);
 			JLabel proveedorLabel = new JLabel("Proveedor:");
 			getContentPane().add(proveedorLabel);
-			proveedorLabel.setBounds(21, 50 * i + 20, 120, 30);
+			proveedorLabel.setBounds(21, 50 * i + 20, 120, 30); */
 			
 			
 			
