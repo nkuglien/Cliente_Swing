@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
+import DTO.InsumoDTO;
 import businessDelegates.InsumoDelegate;
 
 public class BajaInsumosPantalla extends javax.swing.JFrame {
@@ -67,7 +67,7 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(text.getText())){
-						texto = "Codigo debería ser un número.";
+						texto = "Codigo deberï¿½a ser un nï¿½mero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;
@@ -75,7 +75,8 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					
 					if (!error){
 						try {
-							if(controlador.verificarInsumo(Integer.parseInt(text.getText()))){
+							InsumoDTO insumo = controlador.buscarInsumo(Long.parseLong(text.getText()));
+							if(insumo != null){
 								controlador.bajaInsumo(Long.parseLong(text.getText()));
 								text.setText("");
 							} else {

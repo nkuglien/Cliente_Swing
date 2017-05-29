@@ -35,8 +35,8 @@ private static ProveedorDelegate instancia;
 		return remoto.verificarProveedor(parseInt);
 	}
 
-	public void altaProveedor(int parseInt, String text) throws RemoteException {
-		remoto.altaProveedor(parseInt, text);
+	public void altaProveedor(ProveedorDTO prov) throws RemoteException {
+		remoto.altaProveedor(prov);
 	}
 
 	public void bajaProveedor(int parseInt) throws RemoteException {
@@ -50,8 +50,8 @@ private static ProveedorDelegate instancia;
 	}
 
 
-	public void modificarProveedor(ProveedorDTO pv, int parseInt) throws RemoteException {
-		remoto.modificarProveedor(pv, parseInt);
+	public void modificarProveedor(ProveedorDTO pv) throws RemoteException {
+		remoto.modificarProveedor(pv);
 		
 	}
 

@@ -41,7 +41,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 			
 			label = new JLabel();
 			getContentPane().add(label);
-			label.setText("DNI: ");
+			label.setText("CUIT: ");
 			label.setBounds(21, 20, 70, 30);
 			
 			text = new JTextField();

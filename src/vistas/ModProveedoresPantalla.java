@@ -25,7 +25,7 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Id:", "Nombre:"};
-
+	private ProveedorDTO prov;
 	
 	public ModProveedoresPantalla() {
 		super();
@@ -83,12 +83,12 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 					String id = idt.getText();
 					
 					try {
-						if(isInteger(id) && controlador.verificarProveedor(Integer.parseInt(id))){
-							ProveedorDTO pv = controlador.solicitarProveedorView(Integer.parseInt(id));
+						prov = controlador.solicitarProveedorView(Integer.parseInt(id));
+						if(prov != null){
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);
 							texts.get(0).setText(id);
-							texts.get(1).setText(pv.getNombre());
+							texts.get(1).setText(prov.getNombre());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -135,9 +135,8 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 					if (!error){
 							ProveedorDTO pv;
 							try {
-								pv = controlador.solicitarProveedorView(Integer.parseInt(id));
-							pv.setNombre(texts.get(1).getText());
-							controlador.modificarProveedor(pv, Integer.parseInt(id));
+							prov .setNombre(texts.get(1).getText());
+							controlador.modificarProveedor(prov);
 							for (JTextField t : texts) t.setText("");
 							} catch (NumberFormatException e) {
 								// TODO Auto-generated catch block

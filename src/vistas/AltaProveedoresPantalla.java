@@ -12,7 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
+import DTO.InsumoProveedorDTO;
+import DTO.ProveedorDTO;
 import businessDelegates.ProveedorDelegate;
 
 public class AltaProveedoresPantalla extends javax.swing.JFrame  {
@@ -27,7 +28,7 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 	private ProveedorDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"Id:", "Nombre:"};
+	private String[] nombres = {"Nombre:"};
 
 	
 	public AltaProveedoresPantalla() {
@@ -74,37 +75,21 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "El proveedor se creó con éxito.";
+					String texto = "El proveedor se creo con ï¿½xito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					
-					if (!isInteger(texts.get(0).getText())){
-						texto = "Id debería ser un número.";
-
-						mensaje.setForeground(Color.RED);
-						error = true;
-					}
+					
 					
 					if (!error){
 						try {
-							if(!controlador.verificarProveedor(Integer.parseInt(texts.get(0).getText()))){
-								controlador.altaProveedor(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText());
+
+								ProveedorDTO dto = new  ProveedorDTO();
+								dto.setInsumos(new ArrayList<InsumoProveedorDTO>());
+								dto.setNombre(texts.get(0).getText());
+								controlador.altaProveedor(dto);
 								for (JTextField t : texts) t.setText("");
-//						} else {
-//							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));
-//							if (!c.isActivo()){
-//								c.alta();
-//								texto = "El cliente se ha dado de alta.";
-//								for (JTextField t : texts) t.setText("");
-//							} else {
-//								texto = "El cliente ya existe.";
-//								mensaje.setForeground(Color.RED);
-//							}
-//						}
-}
-						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

@@ -25,7 +25,7 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Nombre:", "Domicilio:", "Hora Apertura:", "Hora Cierre:"};
-
+	private SucursalDTO sucursal;
 	
 	public ModSucursalesPantalla() {
 		super();
@@ -83,15 +83,14 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					String nro = nrot.getText();
 					
 					try {
-						boolean existe = controlador.verificarSucursal(Integer.parseInt(nro));
-						if(isInteger(nro) && existe){
-							SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
+						sucursal = controlador.solicitarSucursalView(Integer.parseInt(nro));
+						if(sucursal != null){
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);						
-							texts.get(0).setText(sv.getNombre());
-							texts.get(1).setText(sv.getDireccion());
-							texts.get(2).setText(sv.getHorarioApertura().toString());
-							texts.get(3).setText(sv.getHorarioCierre().toString());
+							texts.get(0).setText(sucursal.getNombre());
+							texts.get(1).setText(sucursal.getDireccion());
+							texts.get(2).setText(sucursal.getHorarioApertura().toString());
+							texts.get(3).setText(sucursal.getHorarioCierre().toString());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -144,7 +143,7 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					if (!error){
 							SucursalDTO sv;
 							try {
-								sv = new SucursalDTO(Integer.parseInt(nrot.getText()), texts.get(0).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()), texts.get(1).getText());
+								sv = new SucursalDTO(sucursal.getNumero(), texts.get(0).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()), texts.get(1).getText());
 							
 							controlador.modificarSucursal(sv);
 							for (JTextField t : texts) t.setText("");
