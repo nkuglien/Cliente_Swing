@@ -41,8 +41,8 @@ public class ClienteDelegate {
 		return remoto.altaCliente(clienteDTO);
 	}
 
-	public void bajaCliente(String cuit) throws RemoteException {
-		remoto.bajaCliente(cuit);
+	public void bajaCliente(ClienteDTO cliente) throws RemoteException {
+		remoto.bajaCliente(cliente);
 
 	}
 

@@ -128,6 +128,10 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 							if(insumo == null){
 								controlador.altaInsumo(Long.parseLong(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(),  Integer.parseInt(texts.get(3).getText()), Integer.parseInt(texts.get(4).getText()));
 								for (JTextField t : texts) t.setText("");
+							} else {
+								texto = "Ya existe un nsumo con ese codigo";
+								mensaje.setForeground(Color.RED);
+								error = true;
 							}
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block

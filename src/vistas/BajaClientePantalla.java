@@ -76,7 +76,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 						try {
 							ClienteDTO cliente = clienteBD.buscarCliente(text.getText());
 							if(cliente != null){
-								clienteBD.bajaCliente(text.getText());
+								clienteBD.bajaCliente(cliente);
 								text.setText("");
 							} else {
 								texto = "Ya existe cliente con ese cuit";
