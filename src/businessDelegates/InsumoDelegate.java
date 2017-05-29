@@ -22,7 +22,7 @@ private TDAInsumo remoto;
 	
 	public InsumoDelegate() {
 		try{
-			remoto =(TDAInsumo) Naming.lookup("//localhost:1099/InsumoRemote");
+			remoto =(TDAInsumo) Naming.lookup("//localhost:1099/InsumoRemoto");
 
 		
 		}
