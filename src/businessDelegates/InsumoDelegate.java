@@ -64,7 +64,7 @@ private TDAInsumo remoto;
 	}
 
 
-	public boolean verificarInsumo(int parseInt) {
+	public boolean verificarInsumo(int parseInt) throws RemoteException {
 		return remoto.verificarInsumo(parseInt);
 	}
 
