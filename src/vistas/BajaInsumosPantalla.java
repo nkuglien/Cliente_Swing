@@ -76,7 +76,7 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					if (!error){
 						try {
 							if(controlador.verificarInsumo(Integer.parseInt(text.getText()))){
-								controlador.bajaInsumo(Integer.parseInt(text.getText()));
+								controlador.bajaInsumo(Long.parseLong(text.getText()));
 								text.setText("");
 							} else {
 								texto = "El insumo no existe.";

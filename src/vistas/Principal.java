@@ -89,7 +89,7 @@ public class Principal extends javax.swing.JFrame  {
 		
 			jMenuClientesMod = new JMenuItem();
 			jMenuClientes.add(jMenuClientesMod);
-			jMenuClientesMod.setText("Modificación");
+			jMenuClientesMod.setText("Modificacion");
 			jMenuClientesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -127,7 +127,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuSucursalesMod = new JMenuItem();
 			jMenuSucursales.add(jMenuSucursalesMod);
-			jMenuSucursalesMod.setText("Modificación");
+			jMenuSucursalesMod.setText("Modificacion");
 			jMenuSucursalesMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -165,7 +165,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuInsumosMod = new JMenuItem();
 			jMenuInsumos.add(jMenuInsumosMod);
-			jMenuInsumosMod.setText("Modificación");
+			jMenuInsumosMod.setText("Modificacion");
 			jMenuInsumosMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -215,7 +215,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuPrendasMod = new JMenuItem();
 			jMenuPrendas.add(jMenuPrendasMod);
-			jMenuPrendasMod.setText("Modificación");
+			jMenuPrendasMod.setText("Modificacion");
 			jMenuPrendasMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{
@@ -254,7 +254,7 @@ public class Principal extends javax.swing.JFrame  {
 			
 			jMenuProveedoresMod = new JMenuItem();
 			jMenuProveedores.add(jMenuProveedoresMod);
-			jMenuProveedoresMod.setText("Modificación");
+			jMenuProveedoresMod.setText("Modificacion");
 			jMenuProveedoresMod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) 
 				{

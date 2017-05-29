@@ -66,7 +66,7 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 				t.setVisible(false);
 				texts.add(t);
 			}
-			texts.get(0).setEnabled(false);
+			
 			
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
@@ -83,23 +83,27 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 					String nro = nrot.getText();
 					
 					try {
-						if(isInteger(nro) && controlador.verificarSucursal(Integer.parseInt(nro))){
+						boolean existe = controlador.verificarSucursal(Integer.parseInt(nro));
+						if(isInteger(nro) && existe){
 							SucursalDTO sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
 							for (JLabel l : labels) l.setVisible(true);
-							for (JTextField t : texts) t.setVisible(true);
-							texts.get(0).setText(nro);
-							texts.get(1).setText(sv.getNombre());
-							texts.get(2).setText(sv.getDireccion());
-							texts.get(3).setText(sv.getHorarioApertura().toString());
-							texts.get(4).setText(sv.getHorarioCierre().toString());
+							for (JTextField t : texts) t.setVisible(true);						
+							texts.get(0).setText(sv.getNombre());
+							texts.get(1).setText(sv.getDireccion());
+							texts.get(2).setText(sv.getHorarioApertura().toString());
+							texts.get(3).setText(sv.getHorarioCierre().toString());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
 						} else {
+							if(isInteger(nro))
+								mensaje.setText("La sucursal no existe.");
+							else
+								mensaje.setText("El numero esta mal escrito.");
 							for (JLabel l : labels) l.setVisible(false);
 							for (JTextField t : texts) t.setVisible(false);
 							mod.setVisible(false);
-							mensaje.setText("La sucursal no existe.");
+							
 							mensaje.setForeground(Color.RED);
 						}
 					} catch (NumberFormatException e) {
@@ -124,30 +128,25 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "La sucursal se modific� con �xito.";
+					String texto = "La sucursal se modifico con exito.";
 					mensaje.setForeground(Color.GREEN);
 					
-					String nro = texts.get(0).getText();
 					
-					if (!isInteger(texts.get(3).getText())){
-						texto = "Hora deber�a ser un n�mero.";
+					
+					if (!isInteger(texts.get(3).getText()) || !isInteger(texts.get(2).getText())){
+						texto = "Hora deberia ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
-					if (!isInteger(nro)){
-						texto = "Numero deber�a ser un n�mero.";
-						mensaje.setForeground(Color.RED);
-						error = true;
-					}
+					
 					
 					if (!error){
 							SucursalDTO sv;
 							try {
-								sv = controlador.solicitarSucursalView(Integer.parseInt(nro));
-							sv.setNombre(texts.get(1).getText());
-							sv.setDireccion(texts.get(2).getText());
-							controlador.modificarSucursal(sv, Integer.parseInt(nro));
+								sv = new SucursalDTO(Integer.parseInt(nrot.getText()), texts.get(0).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()), texts.get(1).getText());
+							
+							controlador.modificarSucursal(sv);
 							for (JTextField t : texts) t.setText("");
 							} catch (NumberFormatException e) {
 								// TODO Auto-generated catch block

@@ -31,8 +31,10 @@ private static SucursalDelegate instancia;
 		return remoto.verificarSucursal(parseInt);
 	}
 
-	public void altaSucursal(int parseInt, String text, int parseInt2, int parseInt3) throws RemoteException {
-		remoto.altaSucursal(parseInt, text, parseInt2, parseInt3);
+	public void altaSucursal(int parseInt, String text, String direccion, int parseInt2, int parseInt3) throws RemoteException {
+		SucursalDTO sucursal = new SucursalDTO( parseInt,  text,  parseInt2,  parseInt3, direccion);
+		
+		remoto.altaSucursal(sucursal);
 	}
 
 	public void bajaSucursal(int parseInt) throws RemoteException {
@@ -46,8 +48,8 @@ private static SucursalDelegate instancia;
 	}
 
 
-	public void modificarSucursal(SucursalDTO sv, int parseInt) throws RemoteException {
-		remoto.modificarSucursal(sv, parseInt);
+	public void modificarSucursal(SucursalDTO sv) throws RemoteException {
+		remoto.modificarSucursal(sv);
 		
 	}
 

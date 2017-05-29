@@ -27,7 +27,7 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 	private SucursalDelegate controlador;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"Nombre:", "Domicilio:", "Hora Apertura", "Hora Cierre"};
+	private String[] nombres = {"Numero:","Nombre:", "Domicilio:", "Hora Apertura", "Hora Cierre"};
 
 	
 	public AltaSucursalesPantalla() {
@@ -77,13 +77,18 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 					String texto = "La sucursal se creó con éxito.";
 					mensaje.setForeground(Color.GREEN);
 					
-					if (!isInteger(texts.get(2).getText())){
+					if (!isInteger(texts.get(0).getText())){
+						texto = "Numero debería ser un número.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
+					if (!isInteger(texts.get(3).getText())){
 						texto = "Hora Apertura debería ser un número.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
-					if (!isInteger(texts.get(3).getText())){
+					if (!isInteger(texts.get(4).getText())){
 						texto = "Hora Cierre debería ser un número.";
 
 						mensaje.setForeground(Color.RED);
@@ -93,21 +98,15 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							if(!controlador.verificarSucursal(Integer.parseInt(texts.get(0).getText()))){
-								controlador.altaSucursal(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), Integer.parseInt(texts.get(2).getText()), Integer.parseInt(texts.get(3).getText()));
+							boolean Existe = controlador.verificarSucursal(Integer.parseInt(texts.get(0).getText()));
+							if(!Existe){
+								controlador.altaSucursal(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText(), texts.get(2).getText(), Integer.parseInt(texts.get(3).getText()),Integer.parseInt(texts.get(4).getText()));
 								for (JTextField t : texts) t.setText("");
-//						} else {
-//							Cliente c = controlador.devolverCliente(Integer.parseInt(texts.get(0).getText()));
-//							if (!c.isActivo()){
-//								c.alta();
-//								texto = "El cliente se ha dado de alta.";
-//								for (JTextField t : texts) t.setText("");
-//							} else {
-//								texto = "El cliente ya existe.";
-//								mensaje.setForeground(Color.RED);
-//							}
-//						}
-}
+
+							}
+							else{
+								mensaje.setText("Ya existe una sucursal con el numero indicado");
+							}
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
