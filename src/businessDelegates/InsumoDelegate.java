@@ -63,4 +63,9 @@ private TDAInsumo remoto;
 		return remoto.getAllInsumos();
 	}
 
+
+	public boolean verificarInsumo(int parseInt) {
+		return remoto.verificarInsumo(parseInt);
+	}
+
 }
