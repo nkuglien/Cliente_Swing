@@ -2,6 +2,7 @@ package businessDelegates;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import DTO.PrendaDTO;
 import RemoteObject.TDAPrenda;
@@ -53,6 +54,10 @@ private static PrendaDelegate instancia;
 	public void modificarPrenda(PrendaDTO prenda) throws RemoteException {
 	 remoto.modificarPrenda(prenda);
 		
+	}
+	
+	public List<PrendaDTO> getAllPrendas() throws RemoteException {
+		return remoto.getAllPrendas();
 	}
 
 }

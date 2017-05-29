@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -48,6 +49,7 @@ public class Principal extends javax.swing.JFrame  {
 	private JMenuItem JMenuControlarPagos;
 	
 	private Controlador controlador;
+	private AbstractButton jMenuVariedadPrenda;
 	
 	public static void main(String[] args) 
 	{
@@ -225,6 +227,17 @@ public class Principal extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					ModPrendasPantalla mc = new ModPrendasPantalla();
+					mc.setVisible(true);
+				}
+			});
+			
+			jMenuVariedadPrenda = new JMenuItem();
+			jMenuPrendas.add(jMenuVariedadPrenda);
+			jMenuVariedadPrenda.setText("Argegar Variedad Prenda");
+			jMenuVariedadPrenda.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) 
+				{
+					AgregarVariedadPrendaPantalla mc = new AgregarVariedadPrendaPantalla();
 					mc.setVisible(true);
 				}
 			});
