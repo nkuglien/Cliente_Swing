@@ -45,8 +45,8 @@ private static PrendaDelegate instancia;
 	}
 
 
-	public PrendaDTO solicitarPrendaView(int parseInt) throws RemoteException {
-		return remoto.solicitarPrendaView(parseInt);
+	public PrendaDTO solicitarPrendaView(Long codigo) throws RemoteException {
+		return remoto.solicitarPrendaView(codigo);
 	}
 
 

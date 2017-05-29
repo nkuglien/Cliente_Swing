@@ -66,7 +66,7 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(text.getText())){
-						texto = "Codigo debería ser un número.";
+						texto = "Codigo deberï¿½a ser un nï¿½mero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;
@@ -75,7 +75,7 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					if (!error){
 						try {
 							if(controlador.verificarPrenda(Integer.parseInt(text.getText()))){
-								controlador.bajaprenda(Integer.parseInt(text.getText()));
+								//controlador.bajaprenda(Integer.parseInt(text.getText()));
 								text.setText("");
 							} else {
 								texto = "La prenda no existe.";

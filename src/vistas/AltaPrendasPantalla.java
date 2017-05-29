@@ -87,7 +87,7 @@ public class AltaPrendasPantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							PrendaDTO prena = controlador.solicitarPrendaView(Integer.parseInt(texts.get(0).getText()));
+							PrendaDTO prena = controlador.solicitarPrendaView(Long.parseLong(texts.get(0).getText()));
 							if(prena == null){
 								controlador.altaPrenda(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText());
 								for (JTextField t : texts) t.setText("");
