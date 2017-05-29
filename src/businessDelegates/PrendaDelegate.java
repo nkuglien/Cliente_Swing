@@ -33,12 +33,14 @@ private static PrendaDelegate instancia;
 	}
 
 	public void altaPrenda(int parseInt, String text) throws RemoteException {
-		remoto.altaPrenda(parseInt, text);
+		PrendaDTO prenda = new PrendaDTO();
+		prenda.setDescripcion(text);
+		prenda.setCodigo(new Long(parseInt));
+		remoto.altaPrenda(prenda);
 	}
 
-	public void bajaprenda(int parseInt) throws RemoteException {
-		remoto.bajaprenda(parseInt);
-		
+	public void bajaprenda(PrendaDTO prenda) throws RemoteException {
+		remoto.bajaprenda(prenda);
 		
 	}
 
@@ -48,8 +50,8 @@ private static PrendaDelegate instancia;
 	}
 
 
-	public void modificarPrenda(PrendaDTO pv, int parseInt) throws RemoteException {
-	 remoto.modificarPrenda(pv, parseInt);
+	public void modificarPrenda(PrendaDTO prenda) throws RemoteException {
+	 remoto.modificarPrenda(prenda);
 		
 	}
 

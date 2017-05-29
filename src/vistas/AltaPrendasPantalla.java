@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
+import DTO.PrendaDTO;
 import businessDelegates.PrendaDelegate;
 
 public class AltaPrendasPantalla extends javax.swing.JFrame  {
@@ -74,12 +74,12 @@ public class AltaPrendasPantalla extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "La prenda se creó con éxito.";
+					String texto = "La prenda se creo con exito.";
 					mensaje.setForeground(Color.GREEN);
 					
 					
 					if (!isInteger(texts.get(0).getText())){
-						texto = "Codigo debería ser un número.";
+						texto = "Codigo deberia ser un numero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;
@@ -87,7 +87,8 @@ public class AltaPrendasPantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							if(!controlador.verificarPrenda(Integer.parseInt(texts.get(0).getText()))){
+							PrendaDTO prena = controlador.solicitarPrendaView(Integer.parseInt(texts.get(0).getText()));
+							if(prena == null){
 								controlador.altaPrenda(Integer.parseInt(texts.get(0).getText()), texts.get(1).getText());
 								for (JTextField t : texts) t.setText("");
 //						} else {
