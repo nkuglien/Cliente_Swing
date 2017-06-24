@@ -5,12 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.AreaProduccionDTO;
+import DTO.PrendaAreaProduccionDTO;
 import DTO.PrendaDTO;
 import businessDelegates.PrendaDelegate;
 import controlador.Controlador;
@@ -26,10 +30,18 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = { "Codigo:", "Descripcion:" };
 	private PrendaDTO prenda;
+	private List<AreaProduccionDTO> areas;
+
 
 	public ModPrendasPantalla() {
 		super();
 		this.controlador = PrendaDelegate.GetInstancia();
+		try {
+			areas = controlador.getAllAreasProduccion();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		crearPantalla();
 	}
 
@@ -37,7 +49,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 		int i = 0;
 		try {
 
-			setSize(500, 50 * (nombres.length + 2) + 70);
+			setSize(500, 420);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
 			setTitle("Modificar Prendas");
@@ -64,12 +76,95 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 				t.setBounds(120, 50 * i + 70, 210, 30);
 				t.setVisible(false);
 				texts.add(t);
+				
+				AreaProduccionDTO[] areasArray = new AreaProduccionDTO[areas.size()+1];
+				areasArray[0] = null;
+				int k = 1;
+				for (AreaProduccionDTO ins : areas) {
+					areasArray[k] = ins;
+					k++;
+				}
 			}
+			
+			AreaProduccionDTO[] areasArray = new AreaProduccionDTO[areas.size()+1];
+			areasArray[0] = null;
+			int k = 1;
+			for (AreaProduccionDTO ins : areas) {
+				areasArray[k] = ins;
+				k++;
+			}
+
+			final JComboBox comboBox = new JComboBox(areasArray);
+			getContentPane().add(comboBox);
+			comboBox.setBounds(120, 160, 210, 30);
+			JLabel areaLabel = new JLabel("Area:");
+			getContentPane().add(areaLabel);
+			areaLabel.setBounds(21, 160, 90, 30);
+			final JTextField precio = new JTextField();
+			getContentPane().add(precio);
+			precio.setBounds(350, 160, 60, 30);
+
+			final JComboBox comboBox1 = new JComboBox(areasArray);
+			getContentPane().add(comboBox1);
+			comboBox1.setBounds(120, 200, 210, 30);
+			JLabel areaLabel1 = new JLabel("Area:");
+			getContentPane().add(areaLabel1);
+			areaLabel1.setBounds(21, 200, 90, 30);
+			final JTextField precio1 = new JTextField();
+			getContentPane().add(precio1);
+			precio1.setBounds(350, 200, 60, 30);
+
+			final JComboBox comboBox2 = new JComboBox(areasArray);
+			getContentPane().add(comboBox2);
+			comboBox2.setBounds(120, 240, 210, 30);
+			JLabel areaLabel2 = new JLabel("Area:");
+			getContentPane().add(areaLabel2);
+			areaLabel2.setBounds(21, 240, 90, 30);
+			final JTextField precio2 = new JTextField();
+			getContentPane().add(precio2);
+			precio2.setBounds(350, 240, 60, 30);
+
+			final JComboBox comboBox3 = new JComboBox(areasArray);
+			getContentPane().add(comboBox3);
+			comboBox3.setBounds(120, 280, 210, 30);
+			JLabel areaLabel3 = new JLabel("Area:");
+			getContentPane().add(areaLabel3);
+			areaLabel3.setBounds(21, 280, 90, 30);
+			final JTextField precio3 = new JTextField();
+			getContentPane().add(precio3);
+			precio3.setBounds(350, 280, 60, 30);
+
+			final JComboBox comboBox4 = new JComboBox(areasArray);
+			getContentPane().add(comboBox4);
+			comboBox4.setBounds(120, 320, 210, 30);
+			JLabel areaLabel4 = new JLabel("Area:");
+			getContentPane().add(areaLabel4);
+			areaLabel4.setBounds(21, 320, 90, 30);
+			final JTextField precio4 = new JTextField();
+			getContentPane().add(precio4);
+			precio4.setBounds(350, 320, 60, 30);
+			
+			List<JComboBox> areaCombos = new ArrayList<JComboBox>();
+			areaCombos.add(comboBox);
+			areaCombos.add(comboBox1);
+			areaCombos.add(comboBox2);
+			areaCombos.add(comboBox3);
+			areaCombos.add(comboBox4);
+			for(JComboBox c : areaCombos) c.setVisible(false);
+			
+			List<JTextField> tiempoFields = new ArrayList<JTextField>();
+			tiempoFields.add(precio);
+			tiempoFields.add(precio1);
+			tiempoFields.add(precio2);
+			tiempoFields.add(precio3);
+			tiempoFields.add(precio4);
+			for(JTextField f : tiempoFields) f.setVisible(false);
+			
 			texts.get(0).setEnabled(false);
 
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
-			mensaje.setBounds(21, 50 * i + 70, 200, 30);
+			mensaje.setBounds(40, 340, 300, 30);
 
 			buscar = new JButton();
 			getContentPane().add(buscar);
@@ -79,6 +174,11 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 
 				public void actionPerformed(ActionEvent arg0) {
 					try {
+						
+						
+						for(JTextField f : tiempoFields) f.setText("");
+						for(JComboBox c : areaCombos) c.setSelectedItem(null);
+						
 						String cod = codt.getText();
 						prenda = controlador.solicitarPrendaView(Long.parseLong(cod));
 
@@ -88,6 +188,30 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 								l.setVisible(true);
 							for (JTextField t : texts)
 								t.setVisible(true);
+							
+							int i = 0;
+							for(JTextField f : tiempoFields) {
+								if(prenda.getAreas().size() > i) {
+									f.setText(((PrendaAreaProduccionDTO)prenda.getAreas().get(i)).getTiempo().toString());
+								}
+								f.setVisible(true);
+								i++;
+							}
+							
+							int j = 0;
+							for (JComboBox c : areaCombos) {
+								if (prenda.getAreas().size() > j) {
+									for (int x = 1; x < c.getItemCount(); x = x + 1) {
+										if (((AreaProduccionDTO) c.getItemAt(x))
+												.getCodigo().equals((((PrendaAreaProduccionDTO) prenda.getAreas().get(j))
+														.getArea()).getCodigo())) {
+											c.setSelectedIndex(x);
+										}
+									}
+								}
+								c.setVisible(true);
+								j++;
+							}
 							texts.get(0).setText(cod);
 							texts.get(1).setText(prenda.getDescripcion());
 							mod.setVisible(true);
@@ -122,24 +246,29 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 			mod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					boolean error = false;
-					String texto = "La prenda se modific� con �xito.";
+					String texto = "La prenda se modifico con Exito.";
 					mensaje.setForeground(Color.GREEN.darker());
 
 					String cod = texts.get(0).getText();
-
-					if (!isInteger(cod)) {
-						texto = "DNI deber�a ser un n�mero.";
-						mensaje.setForeground(Color.RED);
-						error = true;
-					}
 
 					if (!error) {
 						try {
 							
 							prenda.setDescripcion(texts.get(1).getText());
+							List<PrendaAreaProduccionDTO> areas = new ArrayList<PrendaAreaProduccionDTO>();
+							int i = 0;
+							for(JComboBox c : areaCombos) {
+								if(c.getSelectedItem()!=null) {
+									PrendaAreaProduccionDTO prendaArea = new PrendaAreaProduccionDTO();
+									prendaArea.setArea((AreaProduccionDTO) c.getSelectedItem());
+									prendaArea.setTiempo(Integer.parseInt(tiempoFields.get(i).getText()));
+									areas.add(prendaArea);
+								}
+								i++;
+							}
+							prenda.setAreas(areas);
 							controlador.modificarPrenda(prenda);
-							for (JTextField t : texts)
-								t.setText("");
+
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
