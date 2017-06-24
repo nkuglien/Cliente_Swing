@@ -14,7 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.AreaProduccionDTO;
 import DTO.InsumoDTO;
+import DTO.ItemInsumoDTO;
+import DTO.PrendaAreaProduccionDTO;
 import DTO.PrendaDTO;
 import DTO.VariedadPrendaDTO;
 import businessDelegates.InsumoDelegate;
@@ -75,7 +78,7 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 			
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
-			mensaje.setBounds(21, 50 * i + 20, 200, 30);
+			mensaje.setBounds(21, 340, 300, 30);
 			
 			JLabel precioLabel = new JLabel();
 			getContentPane().add(precioLabel);
@@ -87,10 +90,11 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 			alta.setText("Ok");
 			alta.setBounds(360, 330, 70, 30);
 			
-			PrendaDTO prendasArray[] = new PrendaDTO[prendas.size()];
-			int j = 0;
+			PrendaDTO prendasArray[] = new PrendaDTO[prendas.size()+1];
+			prendasArray[0] = null;
+			int j = 1;
 			for (PrendaDTO p : prendas) {
-				prendasArray[j] = p;
+				if(p.getEnProduccion()) prendasArray[j] = p;
 				j++;
 			}
 			final JComboBox comboBox = new JComboBox(prendasArray);
@@ -175,7 +179,17 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 			getContentPane().add(precio7);
 			precio7.setBounds(120, 320, 60, 30);
 			
+			List<JComboBox> insumoCombos = new ArrayList<JComboBox>();
+			insumoCombos.add(comboBox6);
+			insumoCombos.add(comboBox5);
+			insumoCombos.add(comboBox3);
+			insumoCombos.add(comboBox4);
 			
+			List<JTextField> cantidadFields = new ArrayList<JTextField>();
+			cantidadFields.add(precio6);
+			cantidadFields.add(precio5);
+			cantidadFields.add(precio3);
+			cantidadFields.add(precio4);
 
 			alta.addActionListener(new ActionListener()
 			{
@@ -186,20 +200,49 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 					mensaje.setForeground(Color.GREEN);
 					
 					
-					if (!isInteger(texts.get(0).getText())){
-						texto = "Codigo deberia ser un numero.";
+					PrendaDTO prendaSeleccionada = (PrendaDTO) comboBox.getSelectedItem();
+					if (prendaSeleccionada == null){
+						texto = "Debe seleccionar una prenda.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
+					
+					String cantProd = precio7.getText();
+					if (!isInteger(cantProd)){
+						texto = "La cantidad de produccion debe ser un numero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!error){
 						try {
-							if(!controlador.verificarPrenda(Integer.parseInt(texts.get(0).getText()))){
+							if(true){
 								VariedadPrendaDTO varPrenda = new VariedadPrendaDTO();
+								varPrenda.setPrenda(prendaSeleccionada);
+								varPrenda.setCantidadProduccionFija(Integer.parseInt(cantProd));
+								varPrenda.setTalle(comboBox1.getSelectedItem().toString());
+								varPrenda.setColor(comboBox2.getSelectedItem().toString());
+								varPrenda.setEnProduccion(true);
 								
+								List<ItemInsumoDTO> insumos = new ArrayList<ItemInsumoDTO>();
+								int i = 0;
+								for(JComboBox c : insumoCombos) {
+									if(c.getSelectedItem()!=null) {
+										ItemInsumoDTO itemInsumo = new ItemInsumoDTO();
+										itemInsumo.setInsumo((InsumoDTO) c.getSelectedItem());
+										itemInsumo.setCantidad(Integer.parseInt(cantidadFields.get(i).getText()));
+										insumos.add(itemInsumo);
+									}
+									i++;
+								}
+								varPrenda.setInsumos(insumos);
 								controlador.altaVariedadPrenda(varPrenda);
 								for (JTextField t : texts) t.setText("");
 
+							} else {
+								texto = "Ya exste una variedad prenda con ese codigo.";
+								mensaje.setForeground(Color.RED);
+								error = true;
 							}
 						} catch (NumberFormatException | RemoteException e) {
 							// TODO Auto-generated catch block

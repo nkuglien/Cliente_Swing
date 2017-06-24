@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.PrendaDTO;
 import businessDelegates.PrendaDelegate;
 
 public class BajaPrendasPantalla extends javax.swing.JFrame {
@@ -37,11 +38,11 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 			setSize(400, 150);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
-			setTitle("Baja Cliente");
+			setTitle("Baja Prenda");
 			
 			label = new JLabel();
 			getContentPane().add(label);
-			label.setText("DNI: ");
+			label.setText("Codigo: ");
 			label.setBounds(21, 20, 70, 30);
 			
 			text = new JTextField();
@@ -66,7 +67,7 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					mensaje.setForeground(Color.GREEN);
 					
 					if (!isInteger(text.getText())){
-						texto = "Codigo deber�a ser un n�mero.";
+						texto = "Codigo deberia ser un numero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;
@@ -74,8 +75,9 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					
 					if (!error){
 						try {
-							if(controlador.verificarPrenda(Integer.parseInt(text.getText()))){
-								//controlador.bajaprenda(Integer.parseInt(text.getText()));
+							PrendaDTO prenda = controlador.solicitarPrendaView(Long.parseLong(text.getText()));
+							if(prenda != null){
+								controlador.bajaprenda(prenda);
 								text.setText("");
 							} else {
 								texto = "La prenda no existe.";
