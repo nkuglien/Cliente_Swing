@@ -102,7 +102,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 				{
 					boolean error = false;
 					String texto = "El insumo se cre� con �xito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(texts.get(3).getText())){
 						texto = "Stock deber�a ser un n�mero.";

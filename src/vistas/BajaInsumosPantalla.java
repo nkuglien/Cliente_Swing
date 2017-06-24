@@ -64,7 +64,7 @@ public class BajaInsumosPantalla extends javax.swing.JFrame {
 					
 					boolean error = false;
 					String texto = "El insumo fue dada de baja.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(text.getText())){
 						texto = "Codigo deber�a ser un n�mero.";

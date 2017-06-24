@@ -74,22 +74,22 @@ public class AltaSucursalesPantalla extends javax.swing.JFrame  {
 				public void actionPerformed(ActionEvent evt) 
 				{
 					boolean error = false;
-					String texto = "La sucursal se creó con éxito.";
-					mensaje.setForeground(Color.GREEN);
+					String texto = "La sucursal se creï¿½ con ï¿½xito.";
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(texts.get(0).getText())){
-						texto = "Numero debería ser un número.";
+						texto = "Numero deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					if (!isInteger(texts.get(3).getText())){
-						texto = "Hora Apertura debería ser un número.";
+						texto = "Hora Apertura deberï¿½a ser un nï¿½mero.";
 						mensaje.setForeground(Color.RED);
 						error = true;
 					}
 					
 					if (!isInteger(texts.get(4).getText())){
-						texto = "Hora Cierre debería ser un número.";
+						texto = "Hora Cierre deberï¿½a ser un nï¿½mero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;

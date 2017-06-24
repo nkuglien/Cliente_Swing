@@ -122,7 +122,7 @@ public class ModProveedoresPantalla extends javax.swing.JFrame {
 				{
 					boolean error = false;
 					String texto = "El proveedor se modific� con �xito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					String id = texts.get(0).getText();
 					

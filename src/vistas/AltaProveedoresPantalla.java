@@ -76,7 +76,7 @@ public class AltaProveedoresPantalla extends javax.swing.JFrame  {
 				{
 					boolean error = false;
 					String texto = "El proveedor se creo con �xito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					
 					

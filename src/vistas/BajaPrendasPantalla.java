@@ -64,7 +64,7 @@ public class BajaPrendasPantalla extends javax.swing.JFrame {
 					
 					boolean error = false;
 					String texto = "La prenda fue dada de baja.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(text.getText())){
 						texto = "Codigo deberia ser un numero.";

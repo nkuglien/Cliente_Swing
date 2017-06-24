@@ -63,7 +63,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 					
 					boolean error = false;
 					String texto = "El cliente fue dado de baja.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(text.getText())){
 						texto = "DNI deberia ser un numero.";

@@ -76,7 +76,7 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 				{
 					boolean error = false;
 					String texto = "El cliente se creo con exito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(texts.get(3).getText())){
 						texto = "Telefono debera ser un numero.";

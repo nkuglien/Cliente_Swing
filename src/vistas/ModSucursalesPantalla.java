@@ -128,7 +128,7 @@ public class ModSucursalesPantalla extends javax.swing.JFrame {
 				{
 					boolean error = false;
 					String texto = "La sucursal se modifico con exito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					
 					

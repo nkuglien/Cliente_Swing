@@ -159,7 +159,7 @@ public class AltaPrendasPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) {
 					boolean error = false;
 					String texto = "La prenda se creo con exito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 
 					if (!isInteger(texts.get(0).getText())) {
 						texto = "Codigo deberia ser un numero.";

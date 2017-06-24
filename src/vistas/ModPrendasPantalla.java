@@ -123,7 +123,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 				public void actionPerformed(ActionEvent evt) {
 					boolean error = false;
 					String texto = "La prenda se modific� con �xito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 
 					String cod = texts.get(0).getText();
 

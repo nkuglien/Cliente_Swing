@@ -132,7 +132,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 				{
 					boolean error = false;
 					String texto = "El cliente se modifico con exito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					String cuit = texts.get(0).getText();
 					

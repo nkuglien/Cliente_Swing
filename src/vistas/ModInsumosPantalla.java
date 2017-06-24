@@ -126,7 +126,7 @@ public class ModInsumosPantalla extends javax.swing.JFrame {
 				{
 					boolean error = false;
 					String texto = "El insumo se modific� con �xito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					String cod = texts.get(0).getText();
 					

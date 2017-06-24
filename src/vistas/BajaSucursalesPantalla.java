@@ -65,10 +65,10 @@ public class BajaSucursalesPantalla extends javax.swing.JFrame {
 					
 					boolean error = false;
 					String texto = "La sucursal fue dada de baja.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(text.getText())){
-						texto = "Numero debería ser un número.";
+						texto = "Numero deberï¿½a ser un nï¿½mero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;

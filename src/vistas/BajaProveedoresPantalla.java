@@ -64,10 +64,10 @@ public class BajaProveedoresPantalla extends javax.swing.JFrame {
 					
 					boolean error = false;
 					String texto = "El proveedor fue dado de baja.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					if (!isInteger(text.getText())){
-						texto = "Id debería ser un número.";
+						texto = "Id deberï¿½a ser un nï¿½mero.";
 
 						mensaje.setForeground(Color.RED);
 						error = true;

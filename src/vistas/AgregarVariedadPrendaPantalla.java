@@ -200,7 +200,7 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 				{
 					boolean error = false;
 					String texto = "La prenda se creo con exito.";
-					mensaje.setForeground(Color.GREEN);
+					mensaje.setForeground(Color.GREEN.darker());
 					
 					
 					PrendaDTO prendaSeleccionada = (PrendaDTO) comboBox.getSelectedItem();
