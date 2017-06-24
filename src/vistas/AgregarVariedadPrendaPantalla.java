@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -90,11 +91,13 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 			alta.setText("Ok");
 			alta.setBounds(360, 330, 70, 30);
 			
+			Predicate<PrendaDTO> enProduccionPredicate = p-> !p.getEnProduccion();
+			prendas.removeIf(enProduccionPredicate);
 			PrendaDTO prendasArray[] = new PrendaDTO[prendas.size()+1];
 			prendasArray[0] = null;
 			int j = 1;
 			for (PrendaDTO p : prendas) {
-				if(p.getEnProduccion()) prendasArray[j] = p;
+				prendasArray[j] = p;
 				j++;
 			}
 			final JComboBox comboBox = new JComboBox(prendasArray);
