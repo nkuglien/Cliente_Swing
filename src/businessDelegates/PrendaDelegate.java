@@ -4,7 +4,9 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import DTO.AreaProduccionDTO;
 import DTO.PrendaDTO;
+import DTO.VariedadPrendaDTO;
 import RemoteObject.TDAPrenda;
 
 public class PrendaDelegate {
@@ -33,11 +35,12 @@ private static PrendaDelegate instancia;
 		return remoto.verificarPrenda(parseInt);
 	}
 
-	public void altaPrenda(int parseInt, String text) throws RemoteException {
-		PrendaDTO prenda = new PrendaDTO();
-		prenda.setDescripcion(text);
-		prenda.setCodigo(new Long(parseInt));
+	public void altaPrenda(PrendaDTO prenda) throws RemoteException {
 		remoto.altaPrenda(prenda);
+	}
+	
+	public void altaVariedadPrenda(VariedadPrendaDTO varPrenda) throws RemoteException {
+		remoto.altaVariedadPrenda(varPrenda);
 	}
 
 	public void bajaprenda(PrendaDTO prenda) throws RemoteException {
@@ -58,6 +61,10 @@ private static PrendaDelegate instancia;
 	
 	public List<PrendaDTO> getAllPrendas() throws RemoteException {
 		return remoto.getAllPrendas();
+	}
+	
+	public List<AreaProduccionDTO> getAllAreasProduccion() throws RemoteException {
+		return remoto.getAllAreasProduccion();
 	}
 
 }
