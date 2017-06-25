@@ -162,6 +162,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							cliente.setDireccion( texts.get(2).getText());
 							cliente.setTelefono( texts.get(3).getText());
 							cliente.getCc().setLimiteCredito(Float.parseFloat(texts.get(4).getText()));
+							cliente.setPedidos(null);
 							clienteBD.modificarCliente(cliente);
 							for (JTextField t : texts) t.setText("");
 						} catch (NumberFormatException e) {
