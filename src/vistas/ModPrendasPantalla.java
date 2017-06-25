@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -173,6 +174,14 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 			tiempoFields.add(precio4);
 			for(JTextField f : tiempoFields) f.setVisible(false);
 			
+			JCheckBox enProd = new JCheckBox();
+			getContentPane().add(enProd);
+			enProd.setBounds(120, 400, 210, 30);
+			JLabel enProdLabel = new JLabel("En Produccion:");
+			getContentPane().add(enProdLabel);
+			enProdLabel.setBounds(21, 400, 110, 30);
+		
+			
 			texts.get(0).setEnabled(false);
 
 			mensaje = new JLabel();
@@ -215,6 +224,8 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 									l.setVisible(true);
 								for (JTextField t : texts)
 									t.setVisible(true);
+								
+								enProd.setSelected(prenda.getEnProduccion());
 								
 								int i = 0;
 								for(JTextField f : tiempoFields) {
@@ -341,6 +352,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 								i++;
 							}
 							prenda.setAreas(areas);
+							prenda.setEnProduccion(enProd.isSelected());
 							controlador.modificarPrenda(prenda);
 
 						} catch (NumberFormatException e) {
