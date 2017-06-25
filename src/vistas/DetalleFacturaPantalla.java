@@ -6,11 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import DTO.ItemPedidoClienteDTO;
 import DTO.PedidoClienteDTO;
 
 
@@ -22,7 +26,7 @@ public class DetalleFacturaPantalla extends javax.swing.JFrame  {
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
 	private String[] nombres = {"Numero:", "Nombre:", "CUIT:", "Fecha:", "Total:"};
-
+	private JScrollPane items;
 	
 	public DetalleFacturaPantalla(PedidoClienteDTO pedidoClienteDTO) {
 		super();
@@ -31,7 +35,7 @@ public class DetalleFacturaPantalla extends javax.swing.JFrame  {
 		try 
 		{
 			
-			setSize(400, 50 * (nombres.length + 2) + 20);
+			setSize(400, 600);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
 			setTitle("Factura");
@@ -65,6 +69,13 @@ public class DetalleFacturaPantalla extends javax.swing.JFrame  {
 			alta.setText("Ok");
 			alta.setBounds(260, 50 * i + 20, 70, 30);
 			
+			DefaultListModel<ItemPedidoClienteDTO> listModel = new DefaultListModel<ItemPedidoClienteDTO>();
+	        for(ItemPedidoClienteDTO p : pedidoClienteDTO.getItems()) {
+	        	listModel.addElement(p);
+	        }
+	        items = new JScrollPane(new JList<>(listModel));
+	        getContentPane().add(items);
+	        items.setBounds(21, 320, 350, 200);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
