@@ -67,4 +67,9 @@ private static PrendaDelegate instancia;
 		return remoto.getAllAreasProduccion();
 	}
 
+
+	public void bajaVariedadPrenda(VariedadPrendaDTO variedadPrendaDTO) throws RemoteException {
+		remoto.bajaVariedadPrenda(variedadPrendaDTO);
+	}
+
 }

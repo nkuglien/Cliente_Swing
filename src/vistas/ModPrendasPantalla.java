@@ -16,6 +16,7 @@ import javax.swing.WindowConstants;
 import DTO.AreaProduccionDTO;
 import DTO.PrendaAreaProduccionDTO;
 import DTO.PrendaDTO;
+import DTO.VariedadPrendaDTO;
 import businessDelegates.PrendaDelegate;
 import controlador.Controlador;
 
@@ -31,6 +32,9 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 	private String[] nombres = { "Codigo:", "Descripcion:" };
 	private PrendaDTO prenda;
 	private List<AreaProduccionDTO> areas;
+	private JButton eliminarVariedad;
+	private VariedadPrendaDTO[] varPrendasArray;
+	private JComboBox variedadPrendaCombo;
 
 
 	public ModPrendasPantalla() {
@@ -49,7 +53,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 		int i = 0;
 		try {
 
-			setSize(500, 420);
+			setSize(500, 500);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
 			setTitle("Modificar Prendas");
@@ -58,6 +62,14 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 			getContentPane().add(dnib);
 			dnib.setText("Codigo:");
 			dnib.setBounds(21, 20, 70, 30);
+			
+			variedadPrendaCombo = new JComboBox();
+			getContentPane().add(variedadPrendaCombo);
+			variedadPrendaCombo.setBounds(120, 360, 210, 30);
+			variedadPrendaCombo.setVisible(false);
+			JLabel varLabel = new JLabel("Variedad:");
+			getContentPane().add(varLabel);
+			varLabel.setBounds(21, 360, 90, 30);
 
 			codt = new JTextField();
 			getContentPane().add(codt);
@@ -164,7 +176,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
-			mensaje.setBounds(40, 340, 300, 30);
+			mensaje.setBounds(40, 450, 300, 30);
 
 			buscar = new JButton();
 			getContentPane().add(buscar);
@@ -174,58 +186,111 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						
+						getContentPane().remove(variedadPrendaCombo);
 						
 						for(JTextField f : tiempoFields) f.setText("");
 						for(JComboBox c : areaCombos) c.setSelectedItem(null);
 						
 						String cod = codt.getText();
-						prenda = controlador.solicitarPrendaView(Long.parseLong(cod));
-
-						if (prenda != null) {
-
-							for (JLabel l : labels)
-								l.setVisible(true);
-							for (JTextField t : texts)
-								t.setVisible(true);
-							
-							int i = 0;
-							for(JTextField f : tiempoFields) {
-								if(prenda.getAreas().size() > i) {
-									f.setText(((PrendaAreaProduccionDTO)prenda.getAreas().get(i)).getTiempo().toString());
-								}
-								f.setVisible(true);
-								i++;
-							}
-							
-							int j = 0;
-							for (JComboBox c : areaCombos) {
-								if (prenda.getAreas().size() > j) {
-									for (int x = 1; x < c.getItemCount(); x = x + 1) {
-										if (((AreaProduccionDTO) c.getItemAt(x))
-												.getCodigo().equals((((PrendaAreaProduccionDTO) prenda.getAreas().get(j))
-														.getArea()).getCodigo())) {
-											c.setSelectedIndex(x);
-										}
-									}
-								}
-								c.setVisible(true);
-								j++;
-							}
-							texts.get(0).setText(cod);
-							texts.get(1).setText(prenda.getDescripcion());
-							mod.setVisible(true);
-
-							mensaje.setText("");
-						} else {
+						if(!isInteger(cod)) {
+							mensaje.setText("El codigo debe ser un numero.");
+							mensaje.setForeground(Color.RED);
 							for (JLabel l : labels)
 								l.setVisible(false);
 							for (JTextField t : texts)
 								t.setVisible(false);
 							mod.setVisible(false);
-							mensaje.setText("La prenda no existe.");
-							mensaje.setForeground(Color.RED);
+							for(JComboBox c : areaCombos) c.setVisible(false);
+							for(JTextField f : tiempoFields) f.setVisible(false);
+							variedadPrendaCombo.setVisible(false);
+							if(eliminarVariedad!=null) eliminarVariedad.setVisible(false);
+							
+						} else {
+							prenda = controlador.solicitarPrendaView(Long.parseLong(cod));
+							if (prenda != null) {
+
+								for (JLabel l : labels)
+									l.setVisible(true);
+								for (JTextField t : texts)
+									t.setVisible(true);
+								
+								int i = 0;
+								for(JTextField f : tiempoFields) {
+									if(prenda.getAreas().size() > i) {
+										f.setText(((PrendaAreaProduccionDTO)prenda.getAreas().get(i)).getTiempo().toString());
+									}
+									f.setVisible(true);
+									i++;
+								}
+								
+								int j = 0;
+								for (JComboBox c : areaCombos) {
+									if (prenda.getAreas().size() > j) {
+										for (int x = 1; x < c.getItemCount(); x = x + 1) {
+											if (((AreaProduccionDTO) c.getItemAt(x))
+													.getCodigo().equals((((PrendaAreaProduccionDTO) prenda.getAreas().get(j))
+															.getArea()).getCodigo())) {
+												c.setSelectedIndex(x);
+											}
+										}
+									}
+									c.setVisible(true);
+									j++;
+								}
+								texts.get(0).setText(cod);
+								texts.get(1).setText(prenda.getDescripcion());
+								mod.setVisible(true);
+
+								
+								varPrendasArray = new VariedadPrendaDTO[prenda.getVariedades().size()];
+								int k = 0;
+								for (VariedadPrendaDTO vp : prenda.getVariedades()) {
+									varPrendasArray[k] = vp;
+									k++;
+								}
+								
+								variedadPrendaCombo = new JComboBox(varPrendasArray);
+								getContentPane().add(variedadPrendaCombo);
+								variedadPrendaCombo.setBounds(120, 360, 210, 30);
+								
+								
+								eliminarVariedad = new JButton();
+								getContentPane().add(eliminarVariedad);
+								eliminarVariedad.setBounds(350, 360, 150, 30);
+								eliminarVariedad.setText("Eliminar Variedad");
+								eliminarVariedad.addActionListener(new ActionListener() {
+
+									public void actionPerformed(ActionEvent arg0) {
+										try {
+											controlador.bajaVariedadPrenda((VariedadPrendaDTO)variedadPrendaCombo.getSelectedItem());
+											mensaje.setForeground(Color.GREEN.darker());
+											mensaje.setText("Se elimino la variedad.");
+											buscar.doClick();
+										} catch (RemoteException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
+									}
+								});
+
+								mensaje.setText("");
+							} else {
+								for (JLabel l : labels)
+									l.setVisible(false);
+								for (JTextField t : texts)
+									t.setVisible(false);
+								mod.setVisible(false);
+								for(JComboBox c : areaCombos) c.setVisible(false);
+								for(JTextField f : tiempoFields) f.setVisible(false);
+								eliminarVariedad.setVisible(false);
+								mensaje.setText("La prenda no existe.");
+								mensaje.setForeground(Color.RED);
+							}
 						}
+
+
+						
 					} catch (NumberFormatException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
