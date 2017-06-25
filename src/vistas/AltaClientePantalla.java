@@ -51,7 +51,7 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 				JLabel l = new JLabel();
 				getContentPane().add(l);
 				l.setText(nombres[i]);
-				l.setBounds(21, 50 * i + 20, 70, 30);
+				l.setBounds(21, 50 * i + 20, 90, 30);
 				labels.add(l);
 				
 				JTextField t = new JTextField();

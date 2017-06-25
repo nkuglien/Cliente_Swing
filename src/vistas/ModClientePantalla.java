@@ -30,7 +30,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	private ClienteDelegate clienteBD;
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	private ArrayList<JTextField> texts = new ArrayList<JTextField>();
-	private String[] nombres = {"Nro Cliente:", "Nombre:", "Domicilio:", "Telefono:"};
+	private String[] nombres = {"Nro Cliente:", "Nombre:", "Domicilio:", "Telefono:", "Limite de Credito"};
 	
 	private ClienteDTO cliente;
 
@@ -64,7 +64,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 				JLabel l = new JLabel();
 				getContentPane().add(l);
 				l.setText(nombres[i]);
-				l.setBounds(21, 50 * i + 70, 70, 30);
+				l.setBounds(21, 50 * i + 70, 90, 30);
 				l.setVisible(false);
 				labels.add(l);
 				
@@ -78,7 +78,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 			
 			mensaje = new JLabel();
 			getContentPane().add(mensaje);
-			mensaje.setBounds(21, 50 * i + 70, 200, 30);
+			mensaje.setBounds(21, 50 * i + 70, 300, 30);
 			
 			buscar = new JButton();
 			getContentPane().add(buscar);
@@ -99,6 +99,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							texts.get(1).setText(cliente.getNombre());
 							texts.get(2).setText(cliente.getDireccion());
 							texts.get(3).setText(cliente.getTelefono());
+							texts.get(4).setText(cliente.getCc().getLimiteCredito().toString());
 							mod.setVisible(true);
 							
 							mensaje.setText("");
@@ -148,12 +149,19 @@ public class ModClientePantalla extends javax.swing.JFrame {
 						error = true;
 					}
 					
+					String limiteC = texts.get(4).getText();
+					if (!isNumber(limiteC)){
+						texto = "El limite de credito deberia ser un numero.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
+					
 					if (!error){
 						try {
 							cliente.setNombre(texts.get(1).getText());
 							cliente.setDireccion( texts.get(2).getText());
 							cliente.setTelefono( texts.get(3).getText());
-
+							cliente.getCc().setLimiteCredito(Float.parseFloat(texts.get(4).getText()));
 							clienteBD.modificarCliente(cliente);
 							for (JTextField t : texts) t.setText("");
 						} catch (NumberFormatException e) {
@@ -180,6 +188,17 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	private boolean isInteger(String s) {
 	    try { 
 	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	private boolean isNumber(String s) {
+	    try { 
+	        Float.parseFloat(s); 
 	    } catch(NumberFormatException e) { 
 	        return false; 
 	    } catch(NullPointerException e) {
