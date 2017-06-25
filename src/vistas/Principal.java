@@ -50,6 +50,8 @@ public class Principal extends javax.swing.JFrame  {
 	
 	private Controlador controlador;
 	private AbstractButton jMenuVariedadPrenda;
+	private JMenu jMenuPedidos;
+	private JMenuItem jMenuPedidosVer;
 	
 	public static void main(String[] args) 
 	{
@@ -293,7 +295,23 @@ public class Principal extends javax.swing.JFrame  {
 			});
 			
 
-				
+			// Menu Pedidos ============================================================
+			jMenuPedidos = new JMenu();
+			jMenuBar.add(jMenuPedidos);
+			jMenuPedidos.setText("Pedidos");
+			
+			jMenuPedidosVer = new JMenuItem();
+			jMenuPedidos.add(jMenuPedidosVer);
+			jMenuPedidosVer.setText("Ver Lista de Pedidos");
+			jMenuPedidosVer.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) 
+				{
+					MostrarFacturasPantalla fact = new MostrarFacturasPantalla();
+					fact.setVisible(true);
+				}
+			});
+			
+			
 			
 						
 			pack();
