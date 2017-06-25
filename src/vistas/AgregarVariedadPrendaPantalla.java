@@ -182,6 +182,14 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 			getContentPane().add(precio7);
 			precio7.setBounds(120, 320, 60, 30);
 			
+			JLabel pLabel = new JLabel("Precio:");
+			getContentPane().add(pLabel);
+			pLabel.setBounds(200, 320, 90, 30);
+			
+			final JTextField p = new JTextField();
+			getContentPane().add(p);
+			p.setBounds(260, 320, 60, 30);
+			
 			List<JComboBox> insumoCombos = new ArrayList<JComboBox>();
 			insumoCombos.add(comboBox6);
 			insumoCombos.add(comboBox5);
@@ -201,6 +209,13 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 					boolean error = false;
 					String texto = "La prenda se creo con exito.";
 					mensaje.setForeground(Color.GREEN.darker());
+					
+					String precio = p.getText();
+					if (!isInteger(precio)){
+						texto = "El precio debe ser un numero.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
 
 					String cantProd = precio7.getText();
 					if (!isInteger(cantProd)){
@@ -250,6 +265,7 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 								varPrenda.setTalle(comboBox1.getSelectedItem().toString());
 								varPrenda.setColor(comboBox2.getSelectedItem().toString());
 								varPrenda.setEnProduccion(true);
+								varPrenda.setPrecioVentaActual(Float.parseFloat(precio));
 								
 								List<ItemInsumoDTO> insumos = new ArrayList<ItemInsumoDTO>();
 								int i = 0;
