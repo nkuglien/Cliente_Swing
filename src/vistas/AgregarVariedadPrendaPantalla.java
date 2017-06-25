@@ -201,7 +201,37 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 					boolean error = false;
 					String texto = "La prenda se creo con exito.";
 					mensaje.setForeground(Color.GREEN.darker());
+
+					String cantProd = precio7.getText();
+					if (!isInteger(cantProd)){
+						texto = "La cantidad de produccion debe ser un numero.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
 					
+					boolean todoInsumsVacios = true;
+					for(JComboBox c :insumoCombos) {
+						if (c.getSelectedItem()!=null){
+							todoInsumsVacios = false;
+						}
+					}
+					if(todoInsumsVacios) {
+						texto = "Seleccione insumos.";
+						mensaje.setForeground(Color.RED);
+						error = true;
+					}
+
+					
+					int m = 0;
+					for(JComboBox c :insumoCombos) {
+						if (c.getSelectedItem()!=null && !isInteger(cantidadFields.get(m).getText())){
+							texto = "Complete la cantidad de los insumos";
+							mensaje.setForeground(Color.RED);
+							error = true;
+							break;
+						}
+						m++;
+					}
 					
 					PrendaDTO prendaSeleccionada = (PrendaDTO) comboBox.getSelectedItem();
 					if (prendaSeleccionada == null){
@@ -210,12 +240,6 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 						error = true;
 					}
 					
-					String cantProd = precio7.getText();
-					if (!isInteger(cantProd)){
-						texto = "La cantidad de produccion debe ser un numero.";
-						mensaje.setForeground(Color.RED);
-						error = true;
-					}
 					
 					if (!error){
 						try {
