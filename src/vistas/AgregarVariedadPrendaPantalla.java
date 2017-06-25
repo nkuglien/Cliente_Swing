@@ -243,7 +243,7 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 					
 					if (!error){
 						try {
-							if(true){
+
 								VariedadPrendaDTO varPrenda = new VariedadPrendaDTO();
 								varPrenda.setPrenda(prendaSeleccionada);
 								varPrenda.setCantidadProduccionFija(Integer.parseInt(cantProd));
@@ -266,11 +266,7 @@ public class AgregarVariedadPrendaPantalla extends javax.swing.JFrame  {
 								controlador.altaVariedadPrenda(varPrenda);
 								for (JTextField t : texts) t.setText("");
 
-							} else {
-								texto = "Ya exste una variedad prenda con ese codigo.";
-								mensaje.setForeground(Color.RED);
-								error = true;
-							}
+							
 						} catch (NumberFormatException | RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

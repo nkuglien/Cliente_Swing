@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -186,6 +187,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 
 				public void actionPerformed(ActionEvent arg0) {
 					try {
+						mensaje.setText("");
 						getContentPane().remove(variedadPrendaCombo);
 						
 						for(JTextField f : tiempoFields) f.setText("");
@@ -241,10 +243,12 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 								texts.get(1).setText(prenda.getDescripcion());
 								mod.setVisible(true);
 
-								
-								varPrendasArray = new VariedadPrendaDTO[prenda.getVariedades().size()];
+								List<VariedadPrendaDTO> variedades = prenda.getVariedades();
+								Predicate<VariedadPrendaDTO> enProduccionPredicate = p-> !p.getEnProduccion();
+								variedades.removeIf(enProduccionPredicate);
+								varPrendasArray = new VariedadPrendaDTO[variedades.size()];
 								int k = 0;
-								for (VariedadPrendaDTO vp : prenda.getVariedades()) {
+								for (VariedadPrendaDTO vp : variedades) {
 									varPrendasArray[k] = vp;
 									k++;
 								}
@@ -262,10 +266,16 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 
 									public void actionPerformed(ActionEvent arg0) {
 										try {
-											controlador.bajaVariedadPrenda((VariedadPrendaDTO)variedadPrendaCombo.getSelectedItem());
-											mensaje.setForeground(Color.GREEN.darker());
-											mensaje.setText("Se elimino la variedad.");
-											buscar.doClick();
+											VariedadPrendaDTO varPrendaSeleccionada = (VariedadPrendaDTO)variedadPrendaCombo.getSelectedItem();
+											if(varPrendaSeleccionada!=null) {
+												controlador.bajaVariedadPrenda(varPrendaSeleccionada);
+												mensaje.setForeground(Color.GREEN.darker());
+												mensaje.setText("Se elimino la variedad.");
+												buscar.doClick();
+											} else {
+												mensaje.setForeground(Color.RED);
+												mensaje.setText("Seleccione una variedad.");
+											}
 										} catch (RemoteException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
@@ -274,7 +284,6 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 									}
 								});
 
-								mensaje.setText("");
 							} else {
 								for (JLabel l : labels)
 									l.setVisible(false);
@@ -283,7 +292,7 @@ public class ModPrendasPantalla extends javax.swing.JFrame {
 								mod.setVisible(false);
 								for(JComboBox c : areaCombos) c.setVisible(false);
 								for(JTextField f : tiempoFields) f.setVisible(false);
-								eliminarVariedad.setVisible(false);
+								if(eliminarVariedad!=null)eliminarVariedad.setVisible(false);
 								mensaje.setText("La prenda no existe.");
 								mensaje.setForeground(Color.RED);
 							}
