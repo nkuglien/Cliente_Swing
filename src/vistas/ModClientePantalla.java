@@ -11,10 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import DTO.ClienteDTO;
-
 import businessDelegates.ClienteDelegate;
 
 public class ModClientePantalla extends javax.swing.JFrame {
@@ -162,7 +159,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 							cliente.setDireccion( texts.get(2).getText());
 							cliente.setTelefono( texts.get(3).getText());
 							cliente.getCc().setLimiteCredito(Float.parseFloat(texts.get(4).getText()));
-							cliente.setPedidos(null);
+							cliente.setPedidos(new ArrayList<>());
 							clienteBD.modificarCliente(cliente);
 							for (JTextField t : texts) t.setText("");
 						} catch (NumberFormatException e) {

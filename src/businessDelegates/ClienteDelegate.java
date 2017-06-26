@@ -35,7 +35,7 @@ public class ClienteDelegate {
 		
 		ClienteDTO clienteDTO = new ClienteDTO(nombre, direccion, telefono, cuit);
 		CuentaCorrienteDTO cc = new CuentaCorrienteDTO(new Float(0), limiteCredito, new ArrayList<MovimientoCCDTO>());
-		cc.setId((long) 1);
+		//cc.setId((long) 1); ESTO PARA QUE ESTABA?
 		clienteDTO.setCc(cc);
 		
 		return remoto.altaCliente(clienteDTO);
