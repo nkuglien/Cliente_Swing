@@ -34,7 +34,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 	
 	public ModClientePantalla() {
 		super();
-		this.clienteBD = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.getInstance();
 		crearPantalla();
 	}
 

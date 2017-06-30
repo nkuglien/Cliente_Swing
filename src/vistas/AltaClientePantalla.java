@@ -33,7 +33,7 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 	
 	public AltaClientePantalla() {
 		super();
-		this.clienteBD = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.getInstance();
 		crearPantalla();
 	}
 

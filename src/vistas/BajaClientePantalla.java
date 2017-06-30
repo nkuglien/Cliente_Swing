@@ -26,7 +26,7 @@ public class BajaClientePantalla extends javax.swing.JFrame {
 	
 	public BajaClientePantalla() {
 		super();
-		this.clienteBD = ClienteDelegate.GetInstancia();
+		this.clienteBD = ClienteDelegate.getInstance();
 		crearPantalla();
 	}
 	
