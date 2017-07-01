@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -140,6 +141,10 @@ public class AltaPrendasPantalla extends javax.swing.JFrame {
 			final JTextField precio4 = new JTextField();
 			getContentPane().add(precio4);
 			precio4.setBounds(350, 280, 60, 30);
+			
+			JCheckBox checkbox2 = new JCheckBox("Discontinuo");		
+			getContentPane().add(checkbox2);
+			checkbox2.setBounds(21, 320, 100, 45);
 			
 			List<JComboBox> areaCombos = new ArrayList<JComboBox>();
 			areaCombos.add(comboBox);

@@ -89,7 +89,7 @@ public class ModClientePantalla extends javax.swing.JFrame {
 					
 					try {
 						cliente = clienteBD.buscarCliente(cuit);
-						if(isInteger(cuit) && cliente != null){
+						if(cliente != null){
 							for (JLabel l : labels) l.setVisible(true);
 							for (JTextField t : texts) t.setVisible(true);
 							texts.get(0).setText(Long.toString(cliente.getNroCliente()));
