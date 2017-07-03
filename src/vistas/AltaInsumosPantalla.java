@@ -53,7 +53,7 @@ public class AltaInsumosPantalla extends javax.swing.JFrame  {
 		try 
 		{
 			
-			setSize(400, 50 * (nombres.length + 2) + 20);
+			setSize(400, 60 * (nombres.length + 2) + 20);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
 			setTitle("Alta Insumos");
