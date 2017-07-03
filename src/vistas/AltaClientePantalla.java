@@ -84,11 +84,6 @@ public class AltaClientePantalla extends javax.swing.JFrame  {
 						error = true;
 					}
 					
-					if (!isInteger(texts.get(0).getText())){
-						texto = "CUIT debera ser un numero.";
-						mensaje.setForeground(Color.RED);
-						error = true;
-					}
 					
 					if (!isInteger(texts.get(4).getText())){
 						texto = "Limite de credito debera ser un numero.";
